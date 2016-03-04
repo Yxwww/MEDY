@@ -10,7 +10,10 @@
         <script src="../jQueryMobile/JS/jquery.js"></script>
         <script src="../jQueryMobile/JS/jquery.mobile-1.4.5.min.js"></script>
         <script  type="application/javascript" src="../medy/CSR_Mobile_Client.js"></script>
-        <link rel="stylesheet" href="../medy/CSR_Style.css">
+        <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+        <link rel="stylesheet" href="../medy/CSR_Style.css"/>
+        <script type="application/javascript" src="javascripts/User.js"></script>
+
     <script>
       // page handler
       $(document).on('pagecontainershow', function(e, ui) {
@@ -46,6 +49,21 @@
 
 </head>
 <body>
+
+<div data-role="page" data-theme="a" id="sign_in">
+    <div data-role="header" class="">
+        LoveLife
+    </div>
+    <div data-role="content">
+        <form method="post" action="demoform.asp">
+            <label for="fname">First name:</label>
+            <input type="text" name="fname" id="fname">
+        </form>
+    </div>
+    <div data-role="footer">
+        <h4>hehe</h4>
+    </div>
+</div>
 
 
 <!-- Starting of first page -->
