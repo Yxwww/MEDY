@@ -1,0 +1,28 @@
+
+.inline {
+    display: inline-block !important;
+}
+body{
+    /*font-family: "微软雅黑","黑体",serif !important;*/
+    /*font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3",serif,"微软雅黑","黑体",serif !important;;*//*/*/
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif !important;
+}
+
+/*.ui_pageContent{width: 600px !important;margin: 0 auto !important;}*/
+.ui_map{height:300px;}
+#home_page h1{text-align: center;}
+.ui_center_button{text-align:center !important;}
+.DIYHeader{text-align:center;padding-top:0px;padding-bottom:0px;}
+.centeringThis{margin:0px auto !important;}
+.centeringThisWrapper{text-align: center !important;}
+input{font-weight:bold !important;}
+.topButton{margin-top:0.2% !important;}
+.ui-header, .ui-footer {
+    border-width: 0px 0 !important;
+    border-style: solid;
+    position: relative;}
+/*.ui-page{max-width:600px;}*/
+.ui-content{
+    margin: 0 auto;
+    max-width:650px;
+}
