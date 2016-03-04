@@ -45,6 +45,23 @@ function resizeMap(map){
 function initialize(lat, lon,geo)
 {
 
+    var myLocation =
+    {
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.099011940211,
+                50.9712938584368,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "1607 90 AV SW",
+            "TYPE": "Indoor Pool",
+            "NAME": "Calgary Jewish Centre"
+        }
+    }
+
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsService = new google.maps.DirectionsService();
     geo.startingLocation.currentLocation = new google.maps.LatLng(lat, lon);
@@ -93,6 +110,43 @@ function initialize(lat, lon,geo)
         map: initMap,
         title: "Current position"
     });
+
+
+
+
+    //START PLAYING WITH GMAPS
+
+
+
+
+
+    //TODO: resolve shape
+    //var myShape = new google.maps.Marker
+    //TODO: test these markers out with JSON locations
+
+
+
+    var testLocationMapMarker = new google.maps.Marker({
+        position: {lat: myLocation.geometry.coordinates[1], lng: myLocation.geometry.coordinates[0]},
+        map: initMap,
+        title: myLocation.properties.NAME
+        //shape:
+        //animation: google.maps.Animation.BOUNCE   //maybe use bounce for selected location
+    });
+
+
+
+    //END PLAYING WITH GMAPS
+
+    //input: JSON object
+    function addLocationToMap(){
+
+    }
+
+    function addLocationToMapImportant(){
+
+    }
+
 
 
     google.maps.event.addListener(initMap, 'idle', function() {
