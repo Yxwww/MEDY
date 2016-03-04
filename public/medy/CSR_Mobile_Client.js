@@ -136,17 +136,53 @@ function initialize(lat, lon,geo)
 
 
 
+
+    //input: landmark : JSON object, type : String, important: bool
+    //Notes: type refers to the type of landmark (based on the name of the json it was obtained from):
+    //city amenities, community services, offleash areas, sport grouping areas
+    //type determines the shape and the layer to which a landmark will be added
+    function addLandmarkToMap(landmark, type, important){
+
+
+        //complex icons: https://developers.google.com/maps/documentation/javascript/examples/icon-complex
+        //this will be based on type
+        //var shape = {
+        //    coords: [1, 1, 1, 20, 18, 20, 18, 1],
+        //    type: 'poly'
+        //};
+
+        //this will also be based on type
+        //var image = {
+        //    url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        //    // This marker is 20 pixels wide by 32 pixels high.
+        //    size: new google.maps.Size(20, 32),
+        //    // The origin for this image is (0, 0).
+        //    origin: new google.maps.Point(0, 0),
+        //    // The anchor for this image is the base of the flagpole at (0, 32).
+        //    anchor: new google.maps.Point(0, 32)
+        //};
+
+
+
+        new google.maps.Marker({
+            position: {lat: landmark.geometry.coordinates[1], lng: landmark.geometry.coordinates[1]},
+            map: initMap,
+            title: landmark.properties.NAME
+            //shape: something to do with type
+            //icon: something to do with type
+
+
+            //this is also based on type, however will be used instead of shape and image if we choose to use pre-determined symbols (good idea!)
+            //simple icons: https://developers.google.com/maps/documentation/javascript/examples/marker-symbol-predefined
+            //icon: {
+            //    path: google.maps.SymbolPath.CIRCLE,
+            //        scale: 10
+            //},
+        })
+
+    }
+
     //END PLAYING WITH GMAPS
-
-    //input: JSON object
-    function addLocationToMap(){
-
-    }
-
-    function addLocationToMapImportant(){
-
-    }
-
 
 
     google.maps.event.addListener(initMap, 'idle', function() {
