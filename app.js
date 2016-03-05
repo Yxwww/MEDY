@@ -56,5 +56,33 @@ app.use(function(err, req, res, next) {
   });
 });
 
+getLandmarks.all(true, function(result){
+    console.log("all results: " + result.length)
+    getLandmarks.filterByCategory(result, true, true, true, true, function(result){
+        console.log("final " + result.length + "\n" +  result);
+        getLandmarks.filterByNearest(result, 10, function(result){
+            console.log(result);
+        })
+    });
+    //getLandmarks.filterByDistance(results, 1, function(results){
+    //console.log(results);
+    //});
+})
+
+/*
+ getLandmarks.all(function(results){
+ console.log(getLandmarks.filterByNearest(results, 10));
+ })
+ */
+
+/*
+ getLandmarks.all(function(results){
+ getLandmarks.filterByName(results, function(results){
+ console.log(results);
+ });
+ })
+ */
+
+//getLandmarks.replacePolygons();
 
 module.exports = app;

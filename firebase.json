@@ -1,0 +1,9 @@
+{
+  "firebase": "teammedy",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
