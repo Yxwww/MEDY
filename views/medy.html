@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html> 
-<html> 
-	<head> 
+﻿<!DOCTYPE html>
+<html>
+	<head>
 	<title>Love Life</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en"></script>
+        <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en"></script>-->
+
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFWfin5Nb58brp51h4kxGcgkIONvionlU&callback=initMap">
+        </script>
+
         <link rel="stylesheet" href="jquerymobile/jquery.mobile.theme-1.4.5.min.css" />
         <link rel="stylesheet" href="jquerymobile/jquery.mobile.icons-1.4.5.min.css" />
         <link rel="stylesheet" href="jquerymobile/jquery.mobile.structure-1.4.5.min.css" />
@@ -13,6 +18,7 @@
         <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
         <link rel="stylesheet" href="../medy/CSR_Style.css"/>
         <script type="application/javascript" src="javascripts/User.js"></script>
+
 
     <script>
       // page handler
@@ -24,11 +30,9 @@
           }
           if(pageId == 'map_page'){
               console.log('On map page');
-              navigator.geolocation.getCurrentPosition(locSuccess, locError);
           }
           if(pageId == 'direction_result'){
                 console.log('On result page');
-
           }
           if(pageId == "movingService"){
 
@@ -38,6 +42,7 @@
 
           }
       });
+
     // MARK: UI Listener
     $(document).ready(function() {
         $('#FBLogin').tap(function(){
@@ -55,6 +60,7 @@
             });
         })
     });
+
     </script>
 
 
@@ -88,9 +94,12 @@
             <label for="fname">First name:</label>
             <input type="text" name="fname" id="fname">
             <div class="ui-input-btn ui-btn ui-btn-inline">
-                FaceBook
+                Facebook
                 <input type="button" id="FBLogin" data-enhanced="true" value="Enhanced">
             </div>
+            <div id="onwardsBtn" class="ui-input-btn ui-btn ui-btn-inline">
+                <a href="#map_page"> Onwards!</a>
+            </div>
         </form>
     </div>
     <div data-role="footer">
@@ -109,7 +118,7 @@
         <h1>LoveLife</h1>
         <h1>P1</h1>
         <ul data-role="listview" data-inset="true">
-            <li>  <a id="regularSelected" data-icon="arrow-r" data-iconpos="right" data-role="button" data-transition="slide" class="ui-corner-all ui-shadow ui_center_button" href="#map_page">外出订车</a></li>
+            <li>  <a id="regularSelected" data-icon="arrow-r" data-iconpos="right" data-role="button" data-transition="slide" class="ui-corner-all ui-shadow ui_center_button" href="#map_page">Map Page</a></li>
             <li>  <a id="airPortServiceSelected" data-icon="arrow-r" data-iconpos="right" href="#airPortService" class="ui-corner-all ui-shadow ui_center_button" data-role="button">机场接送</a></li>
             <li>  <a data-icon="arrow-r" id="movingService_flip" data-iconpos="right" href="#movingService" class="ui-corner-all ui-shadow ui_center_button" data-role="button">搬家服务</a></li>
             <li>  <a data-icon="info" data-iconpos="right" href="#contactUs" class="ui-corner-all ui-shadow ui_center_button" data-role="button">联系我们</a></li>
@@ -247,7 +256,7 @@
 
         <div class="ui-shadow ui-corner-all ui_pageContent" style="">
                         <div data-role="fieldcontain">
-                        <div id="map_init" class="ui_map"></div> <!-- Where the data is loaded -->
+                        <div id="map" class="ui_map"></div> <!-- Where the data is loaded -->
 
 
                         <div data-role="fieldcontain">
@@ -530,7 +539,6 @@
     </div>
 </div>
 <!--END of profile page-->
-
 
 </body>
 </html>

@@ -14,5 +14,4 @@ router.get('/', function(req, res, next) {
     //console.log(__dirname+"../views/medy.html");
 });
 
-
 module.exports = router;
