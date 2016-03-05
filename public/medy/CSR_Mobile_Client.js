@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var map,resultMap, geo,
+var map,resultMap,
     directionsDisplay,
     directionsService;
 
@@ -65,6 +65,62 @@ var myTestGeoJSON = {
     }
 }
 
+
+var myTestGeoJSONList  = [
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.099011940211,
+                50.9712938584368,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "1607 90 AV SW",
+            "TYPE": "Indoor Pool",
+            "NAME": "Calgary Jewish Centre"
+        }
+    },
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.048140771305,
+                51.0746812009129,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "2502 6 ST NE",
+            "TYPE": "Golf Course",
+            "NAME": "Calgary Elks Lodge & Golf Club"
+        }
+    },
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.110141192693,
+                51.080359150233,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "19 ST NW & CHICOUTIMI DR NW",
+            "TYPE": "City Park",
+            "NAME": "North Capitol Hill Park (Canmore Park)"
+        }
+    }
+]
+
+
+
+
+
 /* Initialize the map*/
 //TODO: a callback to "initialize()" occurs when google maps api loads
 function initMap() {
@@ -94,18 +150,17 @@ function initMap() {
             });
         });
     }
-
-    //add our test geojson to our map
-    map.data.addGeoJson(myTestGeoJSON);
-
-//        //style our test geojson
-//        map.data.setStyle(function(feature) {
-//            return /** @type {google.maps.Data.StyleOptions} */({
-//                fillColor: feature.getProperty('color'),
-//                strokeWeight: 1
-//            });
-//        });
 }
+
+//draw a list of GeoJSON objects
+function drawJSONList(list){
+    list.forEach(function (obj) {
+        //alert(obj)
+        map.data.addGeoJson(obj);
+    })
+}
+
+
 
 
 
