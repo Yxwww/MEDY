@@ -162,9 +162,11 @@ function addFeedbackStructure(){
                 var path = featureKey + "/";
                 console.log(path);
 
-                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/" + path);
-                //var featuresRef = ref.child("geometry");
-                ref.push({
+
+                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features");
+                var featureRef = ref.child(featureKey);
+
+                featureRef.push({
                     feedback:{
                         ratings:{
 
