@@ -50,7 +50,11 @@ $(document).on('pagecontainershow', function(e, ui) {
             checkUserLogin();
             console.log("profile page");
             // Sync with User data
-
+            break;
+        case "mdb":
+            addFeedbackStructure();
+            break;
+        case "nearby":
             // Get nearest 10 locations and draw on map
             all(true, function(result){
                 console.log("all results: " + result.length)
@@ -62,9 +66,6 @@ $(document).on('pagecontainershow', function(e, ui) {
                     })
                 });
             })
-            break;
-        case "mdb":
-            addFeedbackStructure();
             break;
         default :
             console.log("not handled pageid: "+pageId );
