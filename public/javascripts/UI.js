@@ -48,6 +48,21 @@ $(document).on('pagecontainershow', function(e, ui) {
             checkUserLogin();
             console.log("profile page");
             // Sync with User data
+
+            // Get nearest 10 locations and draw on map
+            all(true, function(result){
+                console.log("all results: " + result.length)
+                filterByCategory(result, true, true, true, true, function(result){
+                    console.log("final " + result.length + "\n" +  result);
+                    filterByNearest(result, 10, function(result){
+                        console.log(result.length + " landmarks found");
+                        drawJSONList(result);
+                    })
+                });
+            })
+            break;
+        case "mdb":
+            addFeedbackStructure();
             break;
         default :
             console.log("not handled pageid: "+pageId );

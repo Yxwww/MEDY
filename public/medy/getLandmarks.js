@@ -147,6 +147,39 @@ function filterByNearest(result, numResults, cb){
     }
 }
 
+function addFeedbackStructure(){
+    console.log("add feedback structure");
+    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
+    myFirebaseRef.child("Assets/AllServices/3/features").limitToFirst(1000).on("value", function(snapshot) {
+        result = snapshot.val();
+        //var path = "";
+        //for(var assetTableKey in result){
+        //if(result.hasOwnProperty(assetTableKey)){
+        //if(result[assetTableKey].hasOwnProperty("features")) {
+        //if(result.hasOwnProperty("features")) {
+        for(var featureKey in result){
+            if(result.hasOwnProperty(featureKey)){
+                var path = featureKey + "/";
+                console.log(path);
+
+                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/" + path);
+                //var featuresRef = ref.child("geometry");
+                ref.push({
+                    feedback:{
+                        ratings:{
+
+                        },
+                        meanRating: 0
+                    }
+                });
+            }
+        }
+        //}
+        //}
+        //}
+    });
+}
+
 /*
 exports.replacePolygons = function(){
     var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
