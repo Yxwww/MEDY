@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var initMap,resultMap,
+var map,resultMap,
     directionsDisplay,
     directionsService;
 
@@ -41,94 +41,137 @@ function resizeMap(map){
     google.maps.event.trigger(map, 'resize'); // for result map
     map.setZoom(13);
 }
-/* Initialize the map*/
-function initialize(lat, lon,geo)
-{
-
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsService = new google.maps.DirectionsService();
-    geo.startingLocation.currentLocation = new google.maps.LatLng(lat, lon);
-    resultMap = new google.maps.Map(document.getElementById('map_result'), {
-        zoom: 11,
-        center: geo.startingLocation.currentLocation,
-        disableDefaultUI:true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    // the map that display the result
-    directionsDisplay.setMap(resultMap);
-    //Locate the current location
-    var currentResultPositionMarker = new google.maps.Marker({
-        position: geo.startingLocation.currentLocation,
-        map: resultMap,
-        title: "Current position"
-    });
-
-    var infowindowInit = new google.maps.InfoWindow();
-    // add listener to make the map shows after everything has changed
 
 
-    // move the map to current location
-    google.maps.event.addListener(currentResultPositionMarker, 'click', function() {
-        infowindowInit.setContent("<div>您在这里</div>");//("Current position: latitude: " + lat +" longitude: " + lon);
-        infowindowInit.open(resultMap, currentResultPositionMarker);
-    });
-
-    // Add listener for recentering map after navigate to the map_page. But only once so user can move the map around.
-    /**/
-
-    /*********************************************************************************************************************
-        Initlize iniMap
-
-     ***********************************************************************************************************************************/
-    initMap = new google.maps.Map(document.getElementById('map_init'), {
-        zoom: 13,
-        center: geo.startingLocation.currentLocation,
-        disableDefaultUI:true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    var currentInitPositionMarker = new google.maps.Marker({
-        position: geo.startingLocation.currentLocation,
-        map: initMap,
-        title: "Current position"
-    });
-
-
-    google.maps.event.addListener(initMap, 'idle', function() {
-        $('#get_directions').removeClass("ui-disabled")
-        console.log("-> map idle resize map");
-        google.maps.event.trigger(initMap, 'resize'); // for result map
-    });
-
-    google.maps.event.addListenerOnce(initMap, 'center_changed', function() {
-        // 1 second after the center of the map has changed, pan back to the
-        // marker.
-        window.setTimeout(function() {
-            initMap.panTo(currentInitPositionMarker.getPosition());
-        }, 800);
-    });
-} // END of initialization
-
-// Force UI hide useCurrent location
-function locError(error) {
-    // initialize map with a static predefined latitude, longitud
-    var geo = new geoInfo();
-    console.log('loc fail: geoInfo locatable stays as '+geo.startingLocation.locatable);
-    initialize(51.013117,-114.0741556,geo); // calgary by default
-}
-
-function locSuccess(position) {
-    var geo = new geoInfo();
-    geo.startingLocation.locatable = true;
-    console.log('locSuccess: geoInfo locatable changed to '+geo.startingLocation.locatable);
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        // some code..
-        console.log('Mobile!');
-    }else{
-        console.log('PC!');
+//TODO: delete these after we're finished testing
+var myTestGeoJSON = {
+    "type":"Feature",
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -114.099011940211,
+            50.9712938584368,
+            0
+        ]
+    },
+    "properties": {
+        "ADDRESS": "1607 90 AV SW",
+        "TYPE": "Indoor Pool",
+        "NAME": "Calgary Jewish Centre"
+    },
+    "style":{
+        //all SVG styles allowed
+        "fill":"red",
+        "stroke-width":"3",
+        "fill-opacity":0.6
     }
-
-    initialize(position.coords.latitude, position.coords.longitude,geo);
 }
+
+var myTestGeoJSONList  = [
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.099011940211,
+                50.9712938584368,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "1607 90 AV SW",
+            "TYPE": "Indoor Pool",
+            "NAME": "Calgary Jewish Centre"
+        }
+    },
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.048140771305,
+                51.0746812009129,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "2502 6 ST NE",
+            "TYPE": "Golf Course",
+            "NAME": "Calgary Elks Lodge & Golf Club"
+        }
+    },
+    {
+        "type":"Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -114.110141192693,
+                51.080359150233,
+                0
+            ]
+        },
+        "properties": {
+            "ADDRESS": "19 ST NW & CHICOUTIMI DR NW",
+            "TYPE": "City Park",
+            "NAME": "North Capitol Hill Park (Canmore Park)"
+        }
+    }
+]
+
+
+
+
+
+/* Initialize the map*/
+//TODO: a callback to "initialize()" occurs when google maps api loads
+function initMap() {
+    //create our map
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {lat: 51.0486151, lng: -114.0708459},
+        disableDefaultUI:true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    //set map center to user location
+    //if we have user's geolocation
+    if (navigator.geolocation) {
+
+        //set map view to user's location
+        navigator.geolocation.getCurrentPosition(function (position) {
+            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(initialLocation);
+
+            //place a marker at user's location
+            var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var currentResultPositionMarker = new google.maps.Marker({
+                position: userLatLng,
+                map: map,
+                title: "Current position"
+                //for custom icons:
+                //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
+            });
+        });
+    }
+}
+
+//draw a list of GeoJSON objects
+function drawJSONList(list){
+    list.forEach(function (obj) {
+        //alert(obj)
+        map.data.addGeoJson(obj);
+    })
+}
+
+
+
+
+
+
+
+//initialize map immediately after page loads
+google.maps.event.addDomListener(window, "load", initMap);
+
+
+
 
