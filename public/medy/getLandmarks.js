@@ -2,11 +2,11 @@
  * Created by edwinchan on 3/4/2016.
  */
 
-var Firebase = require("firebase");
+//var Firebase = require("firebase");
 var myLat = 51.0454623;
 var myLong = -114.05670029999999;
 
-exports.all = function(optOffleash, cb){
+function all(optOffleash, cb){
     if(optOffleash){
         var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
         myFirebaseRef.child("Assets/AllServices").on("value", function(snapshot) {
@@ -23,7 +23,7 @@ exports.all = function(optOffleash, cb){
     }
 }
 
-exports.filterByCategory = function(result, optSportsAndRecreation, optPark, optCommunity, optAttraction, cb){
+function filterByCategory(result, optSportsAndRecreation, optPark, optCommunity, optAttraction, cb){
     var categoryDictionary = {};
     if(optSportsAndRecreation){
         ['Indoor Pool', 'Golf Course', 'City Park', 'Outdoor Pool', 'Athletic Park', 'Arena', 'Leisure Centre',
@@ -45,7 +45,7 @@ exports.filterByCategory = function(result, optSportsAndRecreation, optPark, opt
     cb(result.filter(this.checkSelectedCategory, categoryDictionary));
 }
 
-exports.checkSelectedCategory = function(value, categoryDictionary){
+function checkSelectedCategory(value, categoryDictionary){
     if(value.hasOwnProperty("properties")){
         if(value["properties"].hasOwnProperty("ASSET_TYPE")){
             if(this.hasOwnProperty(value["properties"]["ASSET_TYPE"])){
@@ -58,7 +58,7 @@ exports.checkSelectedCategory = function(value, categoryDictionary){
     }
 }
 
-exports.filterByDistance = function(result, radius, cb){
+function filterByDistance(result, radius, cb){
     result.forEach(function(assetTable){
         if(assetTable.hasOwnProperty("features")){
             console.log("Check features for radius: " + radius)
@@ -67,7 +67,7 @@ exports.filterByDistance = function(result, radius, cb){
     })
 }
 
-exports.filterByName = function(result, cb){
+function filterByName(result, cb){
     var typeDictionary = {};
     result.forEach(function (assetTable){
         if(assetTable.hasOwnProperty("features")){
@@ -115,7 +115,7 @@ function checkWithinDistance(value, radius){
     }
 }
 
-exports.filterByNearest = function(result, numResults, cb){
+function filterByNearest(result, numResults, cb){
     var sortedLandmarks = result.sort(function(a, b) {
         return parseFloat(distance(a["geometry"]["coordinates"][1], a["geometry"]["coordinates"][0], myLat, myLong, "K"))
             - parseFloat(distance(b["geometry"]["coordinates"][1], b["geometry"]["coordinates"][0], myLat, myLong, "K"));
@@ -127,8 +127,6 @@ exports.filterByNearest = function(result, numResults, cb){
         cb(sortedLandmarks.slice(0, numResults));
     }
 }
-
-exports.filterBy
 
 /*
 exports.replacePolygons = function(){

@@ -56,6 +56,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
+/*
 getLandmarks.all(true, function(result){
     console.log("all results: " + result.length)
     getLandmarks.filterByCategory(result, true, true, true, true, function(result){
@@ -64,10 +65,8 @@ getLandmarks.all(true, function(result){
             console.log(result);
         })
     });
-    //getLandmarks.filterByDistance(results, 1, function(results){
-    //console.log(results);
-    //});
 })
+*/
 
 /*
  getLandmarks.all(function(results){
