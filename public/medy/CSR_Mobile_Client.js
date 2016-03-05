@@ -42,6 +42,8 @@ function resizeMap(map){
     map.setZoom(13);
 }
 
+
+//TODO: delete these after we're finished testing
 var myTestGeoJSON = {
     "type":"Feature",
     "geometry": {
@@ -64,7 +66,6 @@ var myTestGeoJSON = {
         "fill-opacity":0.6
     }
 }
-
 
 var myTestGeoJSONList  = [
     {
@@ -147,6 +148,8 @@ function initMap() {
                 position: userLatLng,
                 map: map,
                 title: "Current position"
+                //for custom icons:
+                //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
             });
         });
     }
