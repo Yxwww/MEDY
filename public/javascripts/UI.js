@@ -65,7 +65,7 @@ $(document).ready(function() {
                 console.log("Login Failed!", error);
             } else {
                 // console.log("Authenticated successfully with payload:", authData);
-                var loginUser = new User("N/A",authData.uid,authData.token,authData.provider,getAuthName(authData));
+                var loginUser = new User("N/A",authData.uid,authData.token,authData.provider,getAuthName(authData),getProfileImageURL(authData));
                 handleSignInWithUserData(loginUser);
             }
         });

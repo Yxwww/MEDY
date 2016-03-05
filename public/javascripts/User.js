@@ -52,6 +52,7 @@ function handleSignInWithUserData(user){
     user_ref = new Firebase("https://teammedy.firebaseio.com/users").child(user.auth.uid)
     user_ref.orderByKey().on("value", function(snapshot) {
         console.log(snapshot.val())
+        console.log(user);
         if(snapshot.val()==null){
             // if user doesn't exist, we make a new user
             user_ref.set({
