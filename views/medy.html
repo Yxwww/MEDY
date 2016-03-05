@@ -506,37 +506,52 @@
 
 <!-- profile page -->
 <div id='profile' data-theme="a" data-role="page">
-    <div data-role="header" data-display="overlay" data-position="left" class="DIYHeader">
-        <a data-icon="arrow-l"  class="topButton" data-rel="back">Back</a>
+    <div data-role="header" data-display="overlay">
+        <a data-icon="arrow-l"  class="ui-btn-left" data-rel="back">Back</a>
+        <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
     </div>
 
-    <div data-role="tabs">
+    <div data-role="content">
+        <div data-role="tabs" style="padding-top: 30px">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#recent" data-theme="a" data-ajax="false">Recent</a></li>
+                    <li><a href="#fav" data-theme="a" data-ajax="false">Favorites</a></li>
+                </ul>
+            </div>
+
+            <div id="recent" class="ui-content">
+                <ul data-role="listview">
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent1</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent2</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent3</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent4</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent5</a></li>
+                </ul>
+            </div>
+
+            <div id="fav" class="ui-content">
+                <ul data-role="listview">
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav1</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav2</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav3</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav3</a></li>
+                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="footer" class="ui-corner-all ui-shadow">
         <div data-role="navbar">
             <ul>
-                <li><a href="#one" data-theme="a" data-ajax="false">one</a></li>
-                <li><a href="#two" data-theme="a" data-ajax="false">two</a></li>
-                <li><a href="ajax-content-ignore.html" data-theme="a" data-ajax="false">three</a></li>
+                <li><a href="#" data-icon="grid">Summary</a></li>
+                <li><a href="#" data-icon="star" class="ui-btn-active">Favs</a></li>
+                <li><a href="#" data-icon="gear">Setup</a></li>
             </ul>
-        </div>
-        <div id="one" class="ui-content">
-            <h1>First tab contents</h1>
-        </div>
-        <div id="two" class="ui-content">
-            <ul data-role="listview">
-                <li><a href="#">Acura</a></li>
-                <li><a href="#">Audi</a></li>
-                <li><a href="#">BMW</a></li>
-                <li><a href="#">Cadillac</a></li>
-                <li><a href="#">Ferrari</a></li>
-            </ul>
-        </div>
-    </div>
-    <div data-role="footer" data-position="fixed" data-tap-toggle="false" class="jqm-footer">
-        <p>jQuery Mobile Demos version <span class="jqm-version"></span></p>
-        <p>Copyright 2014 The jQuery Foundation</p>
+        </div><!-- /navbar -->
     </div><!-- /footer -->
 
-    </div>
 </div>
 <!--END of profile page-->
 
