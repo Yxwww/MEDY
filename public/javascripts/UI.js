@@ -55,7 +55,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             all(true, function(result){
                 console.log("all results: " + result.length)
                 filterByCategory(result, true, true, true, true, function(result){
-                    console.log("final " + result.length + "\n" +  result);
+                    //console.log("final " + result.length + "\n" +  result);
                     filterByNearest(result, 10, function(result){
                         console.log(result.length + " landmarks found");
                         drawJSONList(result);
@@ -104,6 +104,8 @@ $(document).ready(function() {
         } else {
             console.log("User is logged out manually");
             navToPageWithTransition("login","slideup");
+            var ref = new Firebase(medyRootRefURL);
+            ref.offAuth(authDataCallback);
         }
     }
 });
