@@ -2,9 +2,25 @@
  * Created by edwinchan on 3/4/2016.
  */
 
-//var Firebase = require("firebase");
-var myLat = 51.0454623;
-var myLong = -114.05670029999999;
+var myLat = 51.046154;
+var myLong = -114.057419;
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+function success(pos) {
+    myLat = pos.coords.latitude;
+    myLong = pos.coords.longitude;
+};
+
+function error(err) {
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+};
 
 function all(optOffleash, cb){
     if(optOffleash){
