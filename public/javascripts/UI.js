@@ -37,14 +37,15 @@ function checkUserLogin(){
 $(document).on('pagecontainershow', function(e, ui) {
     var pageId = $('body').pagecontainer('getActivePage').prop('id');
     //console.log(pageId);
-    checkUserLogin();
     switch(pageId){
         case "login":
+            checkUserLogin();
             if (current_user) {
                 $.mobile.navigate("#profile");
             }
             break;
         case "profile":
+            checkUserLogin();
             console.log("profile page");
             // Sync with User data
             break;
