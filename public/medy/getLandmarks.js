@@ -2,10 +2,12 @@
  * Created by edwinchan on 3/4/2016.
  */
 
+function setLocation(){
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
 var myLat = 51.046154;
 var myLong = -114.057419;
-
-navigator.geolocation.getCurrentPosition(success, error, options);
 
 var options = {
     enableHighAccuracy: true,
@@ -23,6 +25,7 @@ function error(err) {
 };
 
 function all(optOffleash, cb){
+    setLocation();
     if(optOffleash){
         var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
         myFirebaseRef.child("Assets/AllServices").on("value", function(snapshot) {
