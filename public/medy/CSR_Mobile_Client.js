@@ -169,8 +169,8 @@ function drawJSONList(list){
 
 
 
-//initialize map immediately after map loads
-//google.maps.event.addDomListener(window, "load", initMap);
+//initialize map immediately after page loads
+google.maps.event.addDomListener(window, "load", initMap);
 
 
 
