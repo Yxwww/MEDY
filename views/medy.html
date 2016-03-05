@@ -4,18 +4,20 @@
 	<title>Love Life</title>
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&sensor=false&language=en"></script>
-        <link rel="stylesheet" href="jquerymobile/jquery.mobile.theme-1.4.5.min.css" />
-        <link rel="stylesheet" href="jquerymobile/jquery.mobile.icons-1.4.5.min.css" />
-        <link rel="stylesheet" href="jquerymobile/jquery.mobile.structure-1.4.5.min.css" />
+
+        <!--<link rel="stylesheet" href="jQueryMobile/jquery.mobile.theme-1.4.5.min.css" />
+        <link rel="stylesheet" href="jQueryMobile/jquery.mobile.icons-1.4.5.min.css" />
+        <link rel="stylesheet" href="jQueryMobile/jquery.mobile.structure-1.4.5.min.css" />-->
+        <link rel="stylesheet" href="jQueryMobile/jquery.mobile-1.4.5.min.css" />
         <script src="../jQueryMobile/JS/jquery.js"></script>
         <script src="../jQueryMobile/JS/jquery.mobile-1.4.5.min.js"></script>
         <script  type="application/javascript" src="../medy/CSR_Mobile_Client.js"></script>
         <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
         <link rel="stylesheet" href="../medy/CSR_Style.css"/>
         <script type="application/javascript" src="javascripts/User.js"></script>
-
     <script>
-      // page handler
+
+
       $(document).on('pagecontainershow', function(e, ui) {
           var pageId = $('body').pagecontainer('getActivePage').prop('id');
           //console.log(pageId);
@@ -35,13 +37,12 @@
           }
           if(pageId == 'serviceReport'){
               console.log('On report page');
-
           }
       });
     // MARK: UI Listener
-    $(document).ready(function() {
-        $('#FBLogin').tap(function(){
 
+    $(document).ready(function() {
+        $('.FBLogin').tap(function(){
             var ref = new Firebase("https://teammedy.firebaseio.com");
             ref.authWithOAuthPopup("facebook", function(error, authData) {
                 if (error) {
@@ -53,6 +54,12 @@
                     handleSignInWithUserData(loginUser);
                 }
             });
+        })
+        $("#login_btn").tap(function(){
+            login($("#un_login").val(),$("#pw_login").val())
+        })
+        $('#signUp_confirm_btn').tap(function(){
+            signUp($("#un_signup").val(),$("#pw_signup").val())
         })
     });
     </script>
@@ -81,20 +88,46 @@
 </script>
 <div data-role="page" data-theme="a" id="sign_in">
     <div data-role="header" class="">
-        LoveLife
+        <h4>LoveLife</h4>
     </div>
     <div data-role="content">
-        <form method="post" action="demoform.asp">
-            <label for="fname">First name:</label>
-            <input type="text" name="fname" id="fname">
-            <div class="ui-input-btn ui-btn ui-btn-inline">
-                FaceBook
-                <input type="button" id="FBLogin" data-enhanced="true" value="Enhanced">
-            </div>
-        </form>
+            <div style="padding:10px 20px;">
+                <h3>Please sign in</h3>
+                <label for="un" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="user" id="un_login" value="" placeholder="username" data-theme="a">
+                    <label for="pw" class="ui-hidden-accessible">Password:</label>
+                    <input type="password" name="pass" id="pw_login" value="" placeholder="password" data-theme="a">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a"><a data-transition="slide" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-plus" href="#sign_up">Sign Up</a></div>
+                    <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
+                    <div class="ui-block-b"><button id="login_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Sign In</button></div>
+                </div>
+                <button style="color:#3b5998" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
+
+            </div>
+    </div>
+    <!--<div data-role="footer">
+        <h4>Lovelife</h4>
+    </div>-->
+</div>
+<div data-role="page" data-theme="a" id="sign_up">
+    <div data-role="header" class="">
+        <a data-icon="arrow-l" data-rel="back" >Back</a>
+        <h4>Sign Up</h4>
+    </div>
+    <div data-role="content">
+        <div style="padding:10px 20px;">
+            <label for="un" class="ui-hidden-accessible">Username:</label>
+            <input type="text" name="user" id="un_signup" value="" placeholder="username" data-theme="a">
+            <label for="pw" class="ui-hidden-accessible">Password:</label>
+            <input type="password" name="pass" id="pw_signup" value="" placeholder="password" data-theme="a">
+                <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
+            <button id="signUp_confirm_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Comfirm</button>
+            <button style="color:#3b5998" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
+        </div>
     </div>
     <div data-role="footer">
-        <h4>hehe</h4>
+        <h4>Lovelife</h4>
     </div>
 </div>
 
@@ -474,6 +507,6 @@
 
 </div>
 <!-- END of result page -->
-
+<script type="application/javascript" src="../javascripts/UI.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
  * Created by Yuxibro on 16-03-03.
  */
 var current_user;
+var medyRootRefURL= "https://teammedy.firebaseio.com/"
 var user_ref;
 function User(email,uid,token,provider,name) {
     this.auth = {};
@@ -20,6 +21,8 @@ function signUp(email,password) {
     }, function (error, userData) {
         if (error) {
             console.log("Error creating user:", error);
+            alert("Error: The specified email address is invalid.");
+            //if(error.contains("email"))
         } else {
             console.log("Successfully created user account with uid:", userData.uid);
             //Login this person in
@@ -34,7 +37,7 @@ function login(email,password){
         password : password
     }, function(error, authData) {
         if(error!=null){
-            console.log("login error: "+ error);
+            alert("login error: "+ error)
         }else{
             // Logged In
             var loginUser = new User(authData.password.email,authData.uid,authData.token,

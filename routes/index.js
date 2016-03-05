@@ -13,6 +13,10 @@ router.get('/', function(req, res, next) {
     res.sendFile(path.resolve(__dirname+"/../views/medy.html"));
     //console.log(__dirname+"../views/medy.html");
 });
-
+router.get('/test', function(req, res, next) {
+    //res.render('index', { title: 'Express' });
+    res.sendFile(path.resolve(__dirname+"/../views/test.html"));
+    //console.log(__dirname+"../views/medy.html");
+});
 
 module.exports = router;

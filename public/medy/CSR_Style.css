@@ -26,3 +26,10 @@ input{font-weight:bold !important;}
     margin: 0 auto;
     max-width:650px;
 }
+.ui-icon-myicon:after {
+    background-image: url("../jQueryMobile/images/icons-svg/facebook_round.svg");
+}
+/* Fallback */
+/*.ui-nosvg .ui-icon-myicon:after {
+    background-image: url("../jQueryMobile/images/icons-png/facebook_square.png");
+}*/
