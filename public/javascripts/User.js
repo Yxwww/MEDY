@@ -66,7 +66,7 @@ function handleSignInWithUserData(user){
             user.data = snapshot.val();
             console.log(user);
         }
-        $.mobile.navigate("#profile");
+        navToPageWithTransition("profile","slidedown");
     });
 
 }
