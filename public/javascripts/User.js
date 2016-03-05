@@ -3,12 +3,13 @@
  */
 var current_user;
 var user_ref;
-function User(email,uid,token,provider) {
+function User(email,uid,token,provider,name) {
     this.auth = {};
     this.auth["email"]= email
     this.auth["uid"] = uid
     this.auth["token"] = token
     this.auth["provider"]= provider
+    this.auth["name"] = name
     this.data = null;
 }
 function signUp(email,password) {
@@ -37,28 +38,32 @@ function login(email,password){
         }else{
             // Logged In
             var loginUser = new User(authData.password.email,authData.uid,authData.token,
-                authData.auth.provider);
-            console.log(loginUser);         // update Current User
-            current_user = loginUser;       // update Current User
-            user_ref = new Firebase("https://teammedy.firebaseio.com/users").child(current_user.auth.uid)
-            user_ref.orderByKey().on("value", function(snapshot) {
-                if(snapshot.val()==null){
-                    user_ref.set({
-                        provider: current_user.auth.provider,
-                        email: current_user.auth.email,
-                        name: getAuthName(authData)
-                    })
-                }else{
-                    current_user.data = snapshot.val();
-                    console.log(current_user);
-                }
-            });
+                authData.auth.provider,getAuthName(authData));
+            handleSignInWithUserData(loginUser)
         }
     }, {remember: "sessionOnly"});
 }
 //login()
+function handleSignInWithUserData(user){
+    user_ref = new Firebase("https://teammedy.firebaseio.com/users").child(user.auth.uid)
+    user_ref.orderByKey().on("value", function(snapshot) {
+        console.log(snapshot.val())
+        if(snapshot.val()==null){
+            // if user doesn't exist, we make a new user
+            user_ref.set({
+                provider: user.auth.provider,
+                email: user.auth.email,
+                name: user.auth.name
+            })
+        }else{
+            //we have user data
+            user.data = snapshot.val();
+            console.log(user);
+        }
+    });
+}
 
-signUp("130@126.com","123")
+//signUp("130@126.com","123")
 function getAuthName(authData) {
     switch (authData.provider) {
         case 'password':

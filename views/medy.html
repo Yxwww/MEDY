@@ -38,10 +38,23 @@
 
           }
       });
-
+    // MARK: UI Listener
     $(document).ready(function() {
+        $('#FBLogin').tap(function(){
 
-       });
+            var ref = new Firebase("https://teammedy.firebaseio.com");
+            ref.authWithOAuthPopup("facebook", function(error, authData) {
+                if (error) {
+                    console.log("Login Failed!", error);
+                } else {
+                   // console.log("Authenticated successfully with payload:", authData);
+                    var loginUser = new User("N/A",authData.uid,authData.token,authData.provider,getAuthName(authData));
+
+                    handleSignInWithUserData(loginUser);
+                }
+            });
+        })
+    });
     </script>
 
 
@@ -49,7 +62,23 @@
 
 </head>
 <body>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1725591740989004',
+            xfbml      : true,
+            version    : 'v2.5'
+        });
+    };
 
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <div data-role="page" data-theme="a" id="sign_in">
     <div data-role="header" class="">
         LoveLife
@@ -58,6 +87,10 @@
         <form method="post" action="demoform.asp">
             <label for="fname">First name:</label>
             <input type="text" name="fname" id="fname">
+            <div class="ui-input-btn ui-btn ui-btn-inline">
+                FaceBook
+                <input type="button" id="FBLogin" data-enhanced="true" value="Enhanced">
+            </div>
         </form>
     </div>
     <div data-role="footer">
