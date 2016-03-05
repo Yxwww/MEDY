@@ -151,6 +151,7 @@ function initMap() {
                 //for custom icons:
                 //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
             });
+            drawJSONList(myTestGeoJSONList);
         });
     }
 }
