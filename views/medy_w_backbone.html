@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js ui-mobile-rendering" lang="en">
+<head>
+    <title>Backbone.js, Require.js, and jQuery Mobile</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//cdn.jsdelivr.net/requirejs/2.1.8/require.min.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile.theme-1.4.5.min.css" />
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile.icons-1.4.5.min.css" />
+    <link rel="stylesheet" href="jquerymobile/jquery.mobile.structure-1.4.5.min.css" />
+</head>
+<body>
+<script>
+    var self = this;
+    $(document).on('click', '.back', function(e) {
+        e.preventDefault();
+        self.back = true;
+        window.history.back();
+    });
+    $.mobile.changePage($(pView.el), {changeHash: false, transition: this.back ? 'slide' : transition, reverse: this.back});
+    this.back = false;
+</script>
+
+<div id="categories" data-role="page" data-title="Categories">
+    <div data-role="header">
+        <h1>Categories</h1>
+    </div><!-- /header -->
+    <div role="main" class="ui-content">
+        <h2>Select a Category Below:</h2>
+        <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+            <li class="ui-first-child">
+                <a href="#category?animals" class="animals ui-btn ui-btn-icon-right ui-icon-carat-r">Animals</a>
+            </li>
+            <li>
+                <a href="#category?colors" class="colors ui-btn ui-btn-icon-right ui-icon-carat-r">Colors</a>
+            </li>
+            <li class="ui-last-child">
+                <a href="#category?vehicles" class="vehicles ui-btn ui-btn-icon-right ui-icon-carat-r">Vehicles</a>
+            </li>
+        </ul>
+    </div><!-- /content -->
+</div>
+
+<div id="animals" data-role="page" data-title="Animals">
+
+    <div data-role="header">
+        <h1>Animals</h1>
+        <a data-icon="arrow-l"  class="back" data-rel="back" >BACK</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div><!-- /content -->
+</div>
+
+<div id="colors" data-role="page" data-title="Colors">
+
+    <div data-role="header">
+        <h1>Colors</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div><!-- /content -->
+
+</div>
+
+<div id="vehicles" data-role="page" data-title="Vehicles">
+
+    <div data-role="header">
+        <h1>Vehicles</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div><!-- /content -->
+
+</div>
+
+<!-- Underscore Template that is used to display all of the Category Models -->
+<script id="categoryItems" type="text/template">
+
+    <% _.each( collection.toJSON(), function( category, id ) { %>
+
+    <li class="ui-li-static">
+        <%= category.type %>
+    </li>
+
+    <% }); %>
+
+</script>
+
+</body>
+</html>
