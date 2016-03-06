@@ -30,7 +30,7 @@ input{font-weight:bold !important;}
     background-image: url("../jQueryMobile/images/icons-svg/facebook_round.svg");
 }
 [data-role=page]{height: 100% !important; position:relative !important;}
-[data-role=footer]{bottom:0; position:absolute !important; top: auto !important; width:100%;}
+[data-role=footer]{position:absolute !important;bottom:0; top: auto !important; width:100%;}
 /* Fallback */
 /*.ui-nosvg .ui-icon-myicon:after {
     background-image: url("../jQueryMobile/images/icons-png/facebook_square.png");

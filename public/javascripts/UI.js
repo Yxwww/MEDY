@@ -51,10 +51,8 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "profile":
             checkUserLogin();
-
             if (current_user.auth.profileImageURL===null)
                 current_user.auth.profileImageURL="https://www.watch2gether.com/assets/w2guser-default-4cd04e39cfd59017ebad065028b8af9dfca8499a45a7b19ec20b1c478a751a77.png"
-
 
             $('#profileImage').attr("src",current_user.auth.profileImageURL)
             console.log(current_user.auth.profileImageURL)
@@ -66,13 +64,24 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
+            $.mobile.loading( "show", {
+                text: "Loading",
+                textVisible: " " ,
+                theme: "b",
+                textonly: false,
+                html: ""
+            });
             all(true, function(result){
                 console.log("all results: " + result.length)
                 filterByCategory(result, true, true, true, true, function(result){
                     //console.log("final " + result.length + "\n" +  result);
                     filterByNearest(result, 10, function(result){
                         console.log(result.length + " landmarks found");
+                        google.maps.event.trigger(map, 'resize');
+                        map.setCenter(initialLocation)
+                        map.setZoom(15)
                         drawJSONList(result);
+                        $.mobile.loading( "hide" );
                     })
                 });
             })
@@ -112,22 +121,26 @@ $(document).ready(function() {
 
     $("#leave_comment").tap(function(){
         //$('#description_block').html('').trigger("create");
-        console.log($("#description_block").is(":visible"));
-        console.log($("#comment_block").is(":visible"));
-        $("#description_block").slideToggle()
-        $("#comment_block").slideToggle()
+        /*console.log($("#description_block").is(":visible"));
+        console.log($("#comment_block").is(":visible"));*/
+        $("#description_block").slideToggle(resizeSatMap)
+        $("#comment_block").slideToggle(resizeSatMap)
     })
+    var resizeSatMap = function(){
+        google.maps.event.trigger(satelliteMap, 'resize');
+    }
     $("#comment_cancel").tap(function(){
-        $("#description_block").slideToggle()
-        $("#comment_block").slideToggle()
+        $("#description_block").slideToggle(resizeSatMap)
+        $("#comment_block").slideToggle(resizeSatMap)
+    })
+    $("#landmarkPopUpBtn").tap(function(){
+        console.log(" ");
+        setSatelliteMapCenter(51.0770331,-114.1380119)
+
     })
 
     $("#refreshNearby").tap(function(){
-
         google.maps.event.trigger(satelliteMap, 'resize');
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(initialLocation)
-        map.setZoom(15)
     })
 
     function authDataCallback(authData) {

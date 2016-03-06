@@ -3,7 +3,7 @@
  */
 var map,satelliteMap,
     directionsDisplay,
-    directionsService;
+    directionsService,initialLocation;
 
 /*
 *   Factory
@@ -225,8 +225,9 @@ function drawJSONList(list){
 
 //moves satelliteMap's view to a lat,long
 function setSatelliteMapCenter(lat,lng){
+    google.maps.event.trigger(satelliteMap, 'resize');
     satelliteMap.setZoom(16)
-    satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
+    satelliteMap.setCenter(new google.maps.LatLng(51.0770333100886, -114.13568838838398))
 }
 
 
