@@ -102,39 +102,103 @@
 </div>
 <!-- END of nearby page -->
 
-<!-- profile page -->
-<div id='profile' data-theme="a" data-role="page">
-    <div data-role="header" data-display="overlay">
-        <a href="#" data-icon="gear" class="ui-btn-right">Options</a>
+<!--profile page -->
+<div data-role="page" id="profile">
+    <div data-theme="a" data-role="header">
+        <h3>Me</h3>
     </div>
 
     <div data-role="content">
-        <button id="logout">log out</button>
-        <div data-role="tabs" style="padding-top: 30px">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#recent" data-theme="a" data-ajax="false">Recent</a></li>
-                    <li><a href="#fav" data-theme="a" data-ajax="false">Favorites</a></li>
-                </ul>
+        <div style=" text-align:center" data-controltype="image" id="user_photo">
+            <img id="profileImage" class="image-border" style="width: 100px; height: 100px" src="">
+
+        </div>
+        <div class="ui-corner-all custom-corners">
+            <div class="ui-bar ui-bar-a">
+                <h2>History</h2>
+                <a class="ui-btn-right ui-btntext-small" data-role="button" data-icon="arrow-r" data-iconpos="right" style="height: 8px" data-position="right" data-inline="true" href="#page4">Show All</a>
             </div>
 
-            <div id="recent" class="ui-content">
-                <ul data-role="listview">
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent1</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent2</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent3</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent4</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">recent5</a></li>
+            <div class="ui-body ui-body-a">
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-theme="c"><a href="" data-transition="slide">Button</a></li>
+                    <li data-theme="c"><a href="#page2" data-transition="slide">Button</a></li>
+                    <li data-theme="c"><a href="#page2" data-transition="slide">Button</a></li>
                 </ul>
             </div>
+        </div>
 
-            <div id="fav" class="ui-content">
-                <ul data-role="listview">
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav1</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav2</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav3</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav3</a></li>
-                    <li><a data-icon="arrow-r" data-iconpos="right" class="ui-corner-all ui-shadow" data-role="button" href="#">fav4</a></li>
+        <a data-role="button" data-iconpos="left">Clear History</a>
+        <button id="logout">Log out</button>
+    </div>
+
+    <div data-role="footer" class="ui-corner-all ui-shadow">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#discover" data-icon="grid">Discover</a></li>
+                <li><a href="#" data-icon="search">Search</a></li>
+                <li><a href="#" data-icon="user" class="ui-btn-active">Profile</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->
+</div>
+<!--END of profile page -->
+
+<!-- discover page -->
+<div id='discover' data-theme="a" data-role="page">
+    <div data-theme="a" data-role="header">
+        <h3>Discover</h3>
+    </div>
+
+    <div data-role="content">
+        <div class="ui-corner-all custom-corners">
+            <div class="ui-bar ui-bar-a">
+                <h2>Top Rated</h2>
+                <a class="ui-btn-right ui-btntext-small" data-role="button" data-icon="arrow-r" data-iconpos="right" style="height: 8px" data-position="right" data-inline="true" href="#page4">Show All</a>
+            </div>
+
+            <div class="ui-body ui-body-a">
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-theme="c">
+                        <a href="" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page2" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page2" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="ui-corner-all custom-corners">
+            <div class="ui-bar ui-bar-a">
+                <h2>Favorites</h2>
+                <a class="ui-btn-right ui-btntext-small" data-role="button" data-icon="arrow-r" style="height: 8px" data-iconpos="right" data-position="right" data-inline="true" href="#page4">Show All</a>
+            </div>
+            <div class="ui-body ui-body-a">
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-theme="c">
+                        <a href="" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page2" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page2" data-transition="slide">
+                            Button
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -143,20 +207,21 @@
     <div data-role="footer" class="ui-corner-all ui-shadow">
         <div data-role="navbar">
             <ul>
-                <li><a href="#" data-icon="grid">Summary</a></li>
-                <li><a href="#nearby" data-icon="star" class="ui-btn-active">Favs</a></li>
-                <li><a href="#" data-icon="gear">Setup</a></li>
+                <li><a href="#" data-icon="grid" class="ui-btn-active">Discover</a></li>
+                <li><a href="#" data-icon="search">Search</a></li>
+                <li><a href="#profile" data-icon="user">Profile</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /footer -->
-
 </div>
-<!--END of profile page-->
+<!-- END of discover page -->
+
 <!-- mdb page -->
 <div id='mdb' data-theme="a" data-role="page">
 
 </div>
 <!--END of profile page-->
+
 <script type="application/javascript" src="../javascripts/UI.js"></script>
 </body>
 </html>

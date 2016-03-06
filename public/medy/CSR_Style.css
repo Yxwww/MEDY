@@ -40,3 +40,14 @@ input{font-weight:bold !important;}
 #satelliteMap {
     background-color: #1dc116;
 }
+
+.ui-btntext-small{
+    font-size: 11px;
+}
+
+.image-border{
+    margin:10px;
+    background-color:#3388CC;
+    padding:6px;
+}
+
