@@ -31,7 +31,7 @@ function checkUserLogin(pageId,cb){
             authData.auth.provider,getAuthName(authData),getProfileImageURL(authData));
         if(pageId=="login" ||pageId=="sign_up" ){
             console.log("user already logged in Log in");
-            navToPageWithTransition("profile","slidedown")
+            navToPageWithTransition("nearby","slidedown")
         }
         if(cb!=undefined){cb()}
     } else {
@@ -41,6 +41,19 @@ function checkUserLogin(pageId,cb){
             console.log("User is logged out. Navigate to Login page");
             navToPageWithTransition("login","slideup")
         }
+    }
+
+    // GPS location handle
+    function initCB(pos){
+        myLat = pos.coords.latitude;
+        myLong = pos.coords.longitude;
+        located = true;
+    }
+    if(located){
+
+    }else{
+        console.log("find my lat");
+        navigator.geolocation.getCurrentPosition(initCB, error, options);
     }
 }
 
@@ -57,10 +70,11 @@ $(document).on('pagecontainershow', function(e, ui) {
                     current_user.auth.profileImageURL="https://www.watch2gether.com/assets/w2guser-default-4cd04e39cfd59017ebad065028b8af9dfca8499a45a7b19ec20b1c478a751a77.png"
                 else{
                     $('#profileImage').attr("src",current_user.auth.profileImageURL)
-                    console.log(current_user.auth.profileImageURL)
                     $(".profileName h3").html(current_user.auth.name)
+                    getHistory(current_user.auth.uid, 100, function(history){
+                        console.log(history)
+                    })
                 }
-
             });
 
 
@@ -132,6 +146,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             //addFullURL();
             break;
         case "nearby":
+            checkUserLogin(pageId);
             // Get nearest 10 locations and draw on map
             $.mobile.loading( "show", {
                 text: "Loading",
@@ -299,7 +314,7 @@ function updateLandmarkWithFeature(feature){
     }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
         $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
     }
-
+    //addHistory(feature.URL,current_user.auth.uid);
 
     var featureLocation = new google.maps.LatLng(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"])
 
