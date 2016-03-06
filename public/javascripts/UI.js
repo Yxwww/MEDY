@@ -182,7 +182,7 @@ $(document).ready(function() {
         addComment(featureRefURL,current_user.auth.name,$('#comment').val())
         $("#description_block").slideToggle(resizeSatMap)
         $("#comment_block").slideToggle(resizeSatMap)
-        getComments(feature.URL,3,function(comments){
+        getComments(featureRefURL,3,function(comments){
             //console.log(comments);
             var commentsHTML = ""
             comments.forEach(function(itr){
@@ -235,6 +235,7 @@ $(document).ready(function() {
     }
 });
 function updateLandmarkWithFeature(feature){
+    $('#feature_comment').html("Comments:");
     if(feature.properties.hasOwnProperty("NAME")){
         $("#feature_name").html(feature.properties["NAME"]);
     }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
