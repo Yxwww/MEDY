@@ -126,10 +126,18 @@ function initMap() {
 
     //create our secondary satellite map
     satelliteMap = new google.maps.Map(document.getElementById('satelliteMap'), {
-        //zoom: 13,
-        //center: {lat: 51.0486151, lng: -114.0708459},
-        //disableDefaultUI:true,
-        //mapTypeId: google.maps.MapTypeId.ROADMAP
+        zoom: 15,
+        center: {lat: 51.0486151, lng: -114.0708459},
+        disableDefaultUI:true,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        //zoomControl: false,
+        scaleControl: false,
+        draggable: false,
+        //scrollwheel: false,
+        //disableDoubleClickZoom: true,
+        minZoom: 14,
+        maxZoom: 15
+        //set max zoom, min zoom?
     });
 
 
@@ -175,7 +183,8 @@ function initMap() {
 
     // Set event listener for each feature.
     map.data.addListener('click', function(event) {
-
+        console.log(event);
+        console.log(event.latLng.lat());
         alert("clicked on marker!")
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
@@ -197,6 +206,7 @@ function drawJSONList(list){
 
 
 //TODO: REALLY need to get this working so that the map ALWAYS loads before we try to access it
+//error = "google is not defined"
 //initialize map immediately when page loads
 google.maps.event.addDomListener(window, "load", initMap);
 

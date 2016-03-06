@@ -15,7 +15,7 @@ $(document).on("pageinit",function(){
 })
 
 
-function checkUserLogin(){
+function checkUserLogin(pageId){
     var ref = new Firebase("https://teammedy.firebaseio.com");
     var authData = ref.getAuth();
     if (authData) {
@@ -27,10 +27,12 @@ function checkUserLogin(){
         current_user = new User(getEmail(authData),authData.uid,authData.token,
             authData.auth.provider,getAuthName(authData),getProfileImageURL(authData));
     } else {
-        console.log("User is logged out");
         // TODO: Uesr logged out, direct to login page
         current_user = null;
-        $.mobile.navigate("#login");
+        if(pageId!="login"){
+            console.log("User is logged out. Navigate to Login page");
+            navToPageWithTransition("login","slideup")
+        }
     }
 }
 
@@ -39,7 +41,7 @@ $(document).on('pagecontainershow', function(e, ui) {
     //console.log(pageId);
     switch(pageId){
         case "login":
-            checkUserLogin();
+            checkUserLogin(pageId);
             if (current_user) {
                 $.mobile.navigate("#profile");
             }
@@ -48,6 +50,22 @@ $(document).on('pagecontainershow', function(e, ui) {
             checkUserLogin();
             console.log("profile page");
             // Sync with User data
+            break;
+        case "mdb":
+            addFeedbackStructure();
+            break;
+        case "nearby":
+            // Get nearest 10 locations and draw on map
+            all(true, function(result){
+                console.log("all results: " + result.length)
+                filterByCategory(result, true, true, true, true, function(result){
+                    //console.log("final " + result.length + "\n" +  result);
+                    filterByNearest(result, 10, function(result){
+                        console.log(result.length + " landmarks found");
+                        drawJSONList(result);
+                    })
+                });
+            })
             break;
         default :
             console.log("not handled pageid: "+pageId );
@@ -85,9 +103,13 @@ $(document).ready(function() {
         if (authData) {
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
         } else {
-            console.log("User is logged out");
-            $.mobile.navigate("#login");
+            console.log("User is logged out manually");
+            navToPageWithTransition("login","slideup");
+            var ref = new Firebase(medyRootRefURL);
+            ref.offAuth(authDataCallback);
         }
     }
-
 });
+function navToPageWithTransition(pageID,transition){
+    $( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+pageID, { role: "page",transition:transition } );
+}
