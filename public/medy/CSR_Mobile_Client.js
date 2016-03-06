@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var map,resultMap,
+var map,satelliteMap,
     directionsDisplay,
     directionsService;
 
@@ -120,12 +120,20 @@ var myTestGeoJSONList  = [
 
 
 
-
-
 /* Initialize the map*/
 //TODO: a callback to "initialize()" occurs when google maps api loads
 function initMap() {
-    //create our map
+
+    //create our secondary satellite map
+    //satelliteMap = new google.maps.Map(document.getElementById('satellitemMap'), {
+    //    //zoom: 13,
+    //    //center: {lat: 51.0486151, lng: -114.0708459},
+    //    //disableDefaultUI:true,
+    //    //mapTypeId: google.maps.MapTypeId.ROADMAP
+    //});
+
+
+    //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: {lat: 51.0486151, lng: -114.0708459},
@@ -142,24 +150,43 @@ function initMap() {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
 
+            //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
             //place a marker at user's location
             var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var currentResultPositionMarker = new google.maps.Marker({
                 position: userLatLng,
                 map: map,
-                title: "Current position"
-                //for custom icons:
+                title: "Current position",
+                //for custom icons: (temp flag icon for now)
+                //icon: image
                 //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
+                //icon: "images/icons-png/beachflag.png"
             });
+
+            map.setZoom(15)
+
+
+            //currentResultPositionMarker.setIcon("https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png")
+
             //drawJSONList(myTestGeoJSONList);
         });
     }
+
+    // Set event listener for each feature.
+    map.data.addListener('click', function(event) {
+
+        alert("clicked on marker!")
+        //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
+        //infowindow.setPosition(event.latLng);
+        //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+        //infowindow.open(map);
+    });
 }
 
 //draw a list of GeoJSON objects
 function drawJSONList(list){
     list.forEach(function (obj) {
-        //alert(obj)
         map.data.addGeoJson(obj);
     })
 }
@@ -169,8 +196,8 @@ function drawJSONList(list){
 
 
 
-
-//initialize map immediately after page loads
+//TODO: REALLY need to get this working so that the map ALWAYS loads before we try to access it
+//initialize map immediately when page loads
 google.maps.event.addDomListener(window, "load", initMap);
 
 

@@ -35,3 +35,8 @@ input{font-weight:bold !important;}
 /*.ui-nosvg .ui-icon-myicon:after {
     background-image: url("../jQueryMobile/images/icons-png/facebook_square.png");
 }*/
+
+
+#satelliteMap {
+    background-color: #1dc116;
+}
