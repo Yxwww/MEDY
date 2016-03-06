@@ -113,8 +113,8 @@
             <img id="profileImage" class="image-border" style="width: 100px; height: 100px" src="">
             <div class="profileName"> <h3></h3></div>
         </div>
-        <h4>History</h4>
-        <ul data-role="listview" id="history_list">
+        <h4 style="margin-bottom:-10px;">History</h4>
+        <ul data-role="listview" id="history_list" data-inset="true">
         </ul>
         <div class="ui-grid-solo">
                 <button id="logout">Log out</button>
@@ -153,27 +153,21 @@
 <!-- discover page -->
 <div id='discover' data-theme="a" data-role="page" >
     <div data-theme="a" data-role="header">
-        <h3>Discover</h3>
+        <h3>Favourite</h3>
     </div>
 
     <div data-role="content">
         <div class="ui-corner-all custom-corners">
             <div class="ui-bar ui-bar-a">
                 <h2>Favorites</h2>
-                <a class="ui-btn-right ui-btntext-small" onclick="mapAllFavourites(current_user.auth.uid)" data-role="button" data-icon="arrow-r" style="height: 8px" data-iconpos="right" data-position="right" data-inline="true" href="#page4">Show All</a>
+                <!--<a class="ui-btn-right ui-btntext-small" onclick="mapAllFavourites(current_user.auth.uid)" data-role="button" data-icon="arrow-r" style="height: 8px" data-iconpos="right" data-position="right" data-inline="true" href="#page4">Show All</a>-->
             </div>
-            <div class="ui-body ui-body-a">
-                <ul data-role="listview" id="favourites-listview" class="listview" data-divider-theme="b" data-inset="true">
-                    <li data-theme="c">
-                        <a href="" data-transition="slide">
-                            Button
-                        </a>
-                    </li>
+
+                <ul data-role="listview" id="favourites-listview" class="listview" data-divider-theme="b" data-inset="true" >
                 </ul>
-            </div>
         </div>
 
-        <a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">Popup</a>
+        <!--<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">Popup</a>-->
 
     </div>
 
