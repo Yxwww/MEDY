@@ -28,7 +28,6 @@ function addComment(featureURL, UID, comment){
     var ref = new Firebase(featureURL);
     var featureRef = ref.child("feedback/comments");
     var package = {};
-    //var currentTime = new Date();
     var currentMilliseconds = new Date().getTime();
     package[currentMilliseconds] = {};
     package[currentMilliseconds]["UID"] = UID;
@@ -40,6 +39,40 @@ function getComments(featureURL, numComments, cb){
     var ref = new Firebase(featureURL);
     var featureRef = ref.child("feedback/comments");
     featureRef.limitToLast(numComments).once("value", function(snapshot){
+        var results = [];
+        snapshot.forEach(function(ss) {
+            results.push(ss.val());
+        });
+        cb(results.reverse());
+    });
+}
+
+function addFavourite(featureURL, UID){
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var favouriteRef = ref.child("favourites");
+    var package = {};
+    var currentMilliseconds = new Date().getTime();
+    package[currentMilliseconds] = featureURL;
+    favouriteRef.update(package);
+}
+
+function getFavourites(UID, numFavourites, cb){
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var featureRef = ref.child("favourites");
+    featureRef.limitToLast(numFavourites).once("value", function(snapshot){
+        var results = [];
+        snapshot.forEach(function(ss) {
+            results.push(ss.val());
+        });
+        cb(results.reverse());
+    });
+}
+
+function removeFavourite(UID, timestampOfFavouriteAsKey){
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var featureRef = ref.child("favourites/"+timestampOfFavouriteAsKey);
+    featureRef.remove()
+    featureRef.limitToLast(numFavourites).once("value", function(snapshot){
         var results = [];
         snapshot.forEach(function(ss) {
             results.push(ss.val());

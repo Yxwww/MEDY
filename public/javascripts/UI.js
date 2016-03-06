@@ -62,6 +62,7 @@ $(document).on('pagecontainershow', function(e, ui) {
 
             break;
         case "mdb":
+            checkUserLogin(pageId);
             /*
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783901", "life is hard01");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783902", "life is hard02");
@@ -82,6 +83,11 @@ $(document).on('pagecontainershow', function(e, ui) {
             getComments("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", 10, function(comments){
                 console.log(comments);
             })
+            //console.log(current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985",current_user.auth.uid);
+            getFavourites(current_user.auth.uid, 10, function(favourites){
+                console.log(favourites);
+            });
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
