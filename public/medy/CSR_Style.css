@@ -27,7 +27,7 @@ input{font-weight:bold !important;}
     max-width:650px;
 }
 .ui-icon-myicon:after {
-    background-image: url("../jQueryMobile/images/icons-svg/facebook_white.svg");
+    background-image: url("http://yuxiwww.me/jQueryMobile/images/icons-svg/facebook_white.svg");
 }
 [data-role=page]{height: 100% !important; position:relative !important;}
 [data-role=footer]{position:absolute !important;bottom:0; top: auto !important; width:100%;}
