@@ -103,9 +103,6 @@
 
 <!--profile page -->
 <div data-role="page" id="profile">
-    <div data-theme="a" data-role="header">
-        <h3>Me</h3>
-    </div>
 
     <div data-role="content">
 
@@ -146,6 +143,35 @@
 </div>
 <!--END of profile page -->
 
+
+    <!-- This popup has its theme explicitly defined via data-theme="a"
+         because it has no parent from which to automatically inherit
+         its theme -->
+    <!-- START: Working with Popup -->
+<div data-role="popup" id="positionWindow" class="ui-content" data-theme="b"  data-dismissible="true" style="min-width: 260px !important;">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <div data-role="header" data-theme="a">
+        <h2>Landmark XXX</h2>
+        <button id="leave_comment" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-edit ui-btn-icon-notext ui-btn-right"></button>
+    </div>
+    <div id="description_block">
+        <div id="satelliteMap" class="ui_map"></div>
+        <!--<img src="images/glenmorePark.jpg"  height="200" width="313"/> -->
+        <p>Distance: 4 km</p>
+        <p>ETA: 25 minutes</p>
+        <p>Comments: </p>
+    </div>
+    <div id="comment_block" style="display:none;">
+        <label for="comment"><h4 style="margin-bottom:3px !important;">Please leave a review:</h4></label>
+        <input type="text" name="pass" id="comment" value="" placeholder="review..." data-theme="a">
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><button id="comment_cancel" data-theme="a">Cancel</button></div>
+            <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
+            <div class="ui-block-b"><button id="comment_submit" data-theme="a">Submit</button></div>
+        </div>
+    </div>
+</div>
+    <!-- END: Working with Popup -->
 <!-- discover page -->
 <div id='discover' data-theme="a" data-role="page" >
     <div data-theme="a" data-role="header">
@@ -204,32 +230,7 @@
                 </ul>
             </div>
         </div>
-        <a href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" id="landmarkPopUpBtn">Popup</a>
-        <!-- START: Working with Popup -->
-        <div data-role="popup" id="positionWindow" class="ui-content" data-theme="b"  data-dismissible="true" style="min-width: 260px !important;">
-            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-                <div data-role="header" data-theme="a">
-                    <h2>Landmark XXX</h2>
-                    <button id="leave_comment" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-edit ui-btn-icon-notext ui-btn-right"></button>
-                </div>
-            <div id="description_block">
-                <div id="satelliteMap" class="ui_map"></div>
-                <!--<img src="images/glenmorePark.jpg"  height="200" width="313"/> -->
-                <p>Distance: 4 km</p>
-                <p>ETA: 25 minutes</p>
-                <p>Comments: </p>
-            </div>
-            <div id="comment_block" style="display:none;">
-                <label for="comment"><h4 style="margin-bottom:3px !important;">Please leave a review:</h4></label>
-                <input type="text" name="pass" id="comment" value="" placeholder="review..." data-theme="a">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a"><button id="comment_cancel" data-theme="a">Cancel</button></div>
-                    <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
-                    <div class="ui-block-b"><button id="comment_submit" data-theme="a">Submit</button></div>
-                </div>
-            </div>
-        </div>
-        <!-- END: Working with Popup -->
+        <a href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">Popup</a>
     </div>
 
     <div data-role="footer" class="ui-corner-all ui-shadow">

@@ -120,6 +120,9 @@ $(document).on('pagecontainershow', function(e, ui) {
 // MARK: UI Listener
 
 $(document).ready(function() {
+    $( function() {
+        $( "#positionWindow" ).enhanceWithin().popup();
+    });
     $('.FBLogin').tap(function(){
         var ref = new Firebase("https://teammedy.firebaseio.com");
         ref.authWithOAuthPopup("facebook", function(error, authData) {
@@ -158,7 +161,7 @@ $(document).ready(function() {
         $("#description_block").slideToggle(resizeSatMap)
         $("#comment_block").slideToggle(resizeSatMap)
     })
-    $("#landmarkPopUpBtn").tap(function(){
+    $(".landmarkPopUpBtn").tap(function(){
         console.log(" ");
         setSatelliteMapCenter(51.0770331,-114.1380119)
 
