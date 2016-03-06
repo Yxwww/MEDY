@@ -152,6 +152,11 @@ function initMap() {
 
     satelliteMap.setTilt(45)                //to set the tilt or not? that is the question
 
+    //update div height of map
+    //alert($("#testing").height() )
+    $("#map").height($(window).height() - 130)
+    $("#map").width($(window).width())
+
     //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
