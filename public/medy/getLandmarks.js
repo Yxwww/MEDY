@@ -96,6 +96,52 @@ function removeFavourite(featureURL, UID){
     });
 }
 
+function addHistory(featureURL, UID){
+    getHistory(current_user.auth.uid, 100, function(history){
+        if(history.indexOf(featureURL) != -1){
+            removeHistory(featureURL, UID, addHistory);
+            console.log("Already exists at" + history.indexOf(featureURL) + ": " + featureURL)
+        }
+        else{
+            var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+            var historyRef = ref.child("history");
+
+            var package = {};
+            var currentMilliseconds = new Date().getTime();
+            package[currentMilliseconds] = featureURL;
+            historyRef.update(package);
+            console.log("Added: " + featureURL)
+        }
+    });
+}
+
+function getHistory(UID, numHistory, cb){
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var featureRef = ref.child("history");
+    featureRef.limitToLast(numHistory).once("value", function(snapshot){
+        var results = [];
+        snapshot.forEach(function(ss) {
+            results.push(ss.val());
+        });
+        cb(results.reverse());
+    });
+}
+
+function removeHistory(featureURL, UID, cb){
+    console.log("Removing " + featureURL)
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var featureRef = ref.child("history");
+    featureRef.once("value", function(snapshot){
+        snapshot.forEach(function(ss) {
+            //console.log(ss.key())
+            if(ss.val()===featureURL){
+                var removeRef = featureRef.child(ss.key());
+                removeRef.remove(cb(featureURL, UID));
+            }
+        });
+    });
+}
+
 function all(optOffleash, cb){
     setLocation(function(pos){
         myLat = pos.coords.latitude;
@@ -255,8 +301,8 @@ function addFeedbackStructure(){
 
 function addFullURL(){
     console.log("add full URL path");
-    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/");
-    myFirebaseRef.orderByKey().startAt("500").endAt("2500").once("value", function(snapshot) {
+    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/1/features/");
+    myFirebaseRef.orderByKey().startAt("0").endAt("1000").once("value", function(snapshot) {
         result = snapshot.val();
         //var path = "";
         //for(var assetTableKey in result){
@@ -268,7 +314,7 @@ function addFullURL(){
                 var path = featureKey + "/";
                 //console.log(featureKey);
 
-                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/");
+                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/1/features/");
                 var featureRef = ref.child(featureKey);
 
                 //console.log("https://teammedy.firebaseio.com" + ref.path + "/" + featureKey);

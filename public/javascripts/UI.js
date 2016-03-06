@@ -62,7 +62,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "mdb":
             checkUserLogin(pageId);
-
+            /*
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard01");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard02");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard03");
@@ -78,19 +78,27 @@ $(document).on('pagecontainershow', function(e, ui) {
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard13");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard14");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard15");
-
+            */
             getComments("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", 10, function(comments){
                 console.log(comments);
             })
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1975",current_user.auth.uid);
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1976",current_user.auth.uid);
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1977",current_user.auth.uid);
+            addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1976",current_user.auth.uid);
             //console.log(current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            getHistory(current_user.auth.uid, 100, function(history){
+                console.log(history)
+            })
+
             /*
             getFavourites(current_user.auth.uid, 100, function(favourites){
                 console.log(favourites)
@@ -115,6 +123,8 @@ $(document).on('pagecontainershow', function(e, ui) {
             getFeatureByURL("https://teammedy.firebaseio.com/Assets/AllServices/0/features/100", function(feature){
                 console.log(feature);
             })
+
+            //addFullURL();
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
@@ -207,6 +217,8 @@ $(document).ready(function() {
         $("#description_block").slideToggle(resizeSatMap)
         $("#comment_block").slideToggle(resizeSatMap)
     })
+
+
     $(".landmarkPopUpBtn").tap(function(){
         //var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980");
         var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
@@ -215,13 +227,43 @@ $(document).ready(function() {
             console.log(feature);
             updateLandmarkWithFeature(feature)
             setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
+
         })
+
+        //TODO: use landmark being selected rather than the oval
+        //var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
+
+        //update distance
+        //$("#feature_distance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
+
+        //TODO: RUN THIS WHEN POPUP POPS UP
+        //var calg = new google.maps.LatLng(51.0453 ,-114.0581)
+        //var ed = new google.maps.LatLng(53.5333,-113.5000)
+
+        //alert("promise result = " + getTravelTime(calg,ed))
+
+        //getTravelTime(initialLocation,olyOval).then(function(response){
+        //    //alert("my response = " + response)
+        //
+        //    //DO WORK
+        //    $("#feature_ETA").text("ETA: " + response)
+        //
+        //
+        //}, function(error){
+        //    alert("failed")
+        //})
+
+
+        //TODO: set landmark's name
+
+
 
     })
 
 
     $("#refreshNearby").tap(function(){
         google.maps.event.trigger(satelliteMap, 'resize');
+        map.setCenter(initialLocation)
     })
 
     function authDataCallback(authData) {
@@ -244,6 +286,23 @@ function updateLandmarkWithFeature(feature){
     }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
         $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
     }
+
+    var featureLocation = new google.maps.LatLng(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"])
+
+    //set distance
+    $("#feature_distance").text("Distance: " + getDistance(initialLocation, featureLocation) + " km")
+
+    //set ETA
+    getTravelTime(initialLocation,featureLocation).then(function(response){
+
+        //DO WORK
+        $("#feature_ETA").text("ETA: " + response)
+
+    }, function(error){
+        alert("failed")
+    })
+
+
     getComments(feature.URL,3,function(comments){
         //console.log(comments);
         var commentsHTML = ""
@@ -265,3 +324,5 @@ $(function(){
 function openLandmarkDetailView(){
     $( "#popup-outside-page").popup("open");
 }
+
+

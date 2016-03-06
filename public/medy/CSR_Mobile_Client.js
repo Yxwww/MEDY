@@ -152,6 +152,14 @@ function initMap() {
 
     satelliteMap.setTilt(45)                //to set the tilt or not? that is the question
 
+    //update div height of map
+    //alert($("#testing").height() )
+    $("#map").height($(window).height() - 130)
+    $("#map").width($(window).width())
+
+    $("#positionWindow").width($(window).width() - 75)
+
+
     //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
@@ -208,6 +216,14 @@ function initMap() {
         })
         featureRefURL = event.feature.R.URL
         setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
+
+
+
+
+
+
+
+
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
         //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
@@ -235,4 +251,44 @@ function setSatelliteMapCenter(lat,lng){
 }
 
 
+//input: p1, p2 are google.maps.LatLang objects
+//tested as working correctly between calgary & edmonton, and calgary & vancouver (based on google maps' distance search)
+function getDistance(p1, p2){
+    return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+}
 
+//get estimated travel time
+function getTravelTime(p1, p2){
+
+    return new Promise(function(resolve, reject) {
+
+        var directionsService = new google.maps.DirectionsService();
+        var request = {
+            origin: p1, // LatLng|string
+            destination: p2, // LatLng|string
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+
+        directionsService.route( request, function(response, status) {
+
+            if (status === "OK") {
+                var point = response.routes[0].legs[0];
+                //$( '#travel_data' ).html( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
+                //alert("estimate travel time = " + point.duration.text + ' (' + point.distance.text + ")" )
+
+                if (point != undefined){
+                    //alert("success: " + point.duration.text)
+                    resolve(point.duration.text)
+                }
+                else{
+                    reject(Error("Point is undefined"))
+                }
+            }
+            else{
+                reject(Error("No route available"))
+            }
+        });
+    })
+
+}
