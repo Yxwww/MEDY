@@ -125,12 +125,12 @@ var myTestGeoJSONList  = [
 function initMap() {
 
     //create our secondary satellite map
-    //satelliteMap = new google.maps.Map(document.getElementById('satellitemMap'), {
-    //    //zoom: 13,
-    //    //center: {lat: 51.0486151, lng: -114.0708459},
-    //    //disableDefaultUI:true,
-    //    //mapTypeId: google.maps.MapTypeId.ROADMAP
-    //});
+    satelliteMap = new google.maps.Map(document.getElementById('satelliteMap'), {
+        //zoom: 13,
+        //center: {lat: 51.0486151, lng: -114.0708459},
+        //disableDefaultUI:true,
+        //mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
 
     //create our base map
