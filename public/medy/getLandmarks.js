@@ -2,12 +2,12 @@
  * Created by edwinchan on 3/4/2016.
  */
 
-function setLocation(){
-    navigator.geolocation.getCurrentPosition(success, error, options);
-}
-
 var myLat = 51.046154;
 var myLong = -114.057419;
+
+function setLocation(successCB){
+    navigator.geolocation.getCurrentPosition(successCB, error, options);
+}
 
 var options = {
     enableHighAccuracy: true,
@@ -15,22 +15,18 @@ var options = {
     maximumAge: 0
 };
 
-function success(pos) {
-    myLat = pos.coords.latitude;
-    myLong = pos.coords.longitude;
-};
-
 function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
+    alert("Could not load your location.");
 };
 
-function addComment(featureURL, UID, comment){
+function addComment(featureURL, name, comment){
     var ref = new Firebase(featureURL);
     var featureRef = ref.child("feedback/comments");
     var package = {};
     var currentMilliseconds = new Date().getTime();
     package[currentMilliseconds] = {};
-    package[currentMilliseconds]["UID"] = UID;
+    package[currentMilliseconds]["name"] = name;
     package[currentMilliseconds]["comment"] = comment;
     featureRef.update(package);
 }
@@ -47,13 +43,30 @@ function getComments(featureURL, numComments, cb){
     });
 }
 
+function getFeatureByURL(featureURL, cb){
+    var ref = new Firebase(featureURL);
+    ref.once("value", function(snapshot){
+        //console.log(snapshot.val());
+        cb(snapshot.val());
+    });
+}
+
 function addFavourite(featureURL, UID){
-    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
-    var favouriteRef = ref.child("favourites");
-    var package = {};
-    var currentMilliseconds = new Date().getTime();
-    package[currentMilliseconds] = featureURL;
-    favouriteRef.update(package);
+    getFavourites(current_user.auth.uid, 100, function(favourites){
+        if(favourites.indexOf(featureURL) != -1){
+            console.log("Already exists at" + favourites.indexOf(featureURL) + ": " + featureURL)
+        }
+        else{
+            var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+            var favouriteRef = ref.child("favourites");
+
+            var package = {};
+            var currentMilliseconds = new Date().getTime();
+            package[currentMilliseconds] = featureURL;
+            favouriteRef.update(package);
+            console.log("Added: " + featureURL)
+        }
+    });
 }
 
 function getFavourites(UID, numFavourites, cb){
@@ -68,34 +81,40 @@ function getFavourites(UID, numFavourites, cb){
     });
 }
 
-function removeFavourite(UID, timestampOfFavouriteAsKey){
+function removeFavourite(featureURL, UID){
+    console.log("Removing " + featureURL)
     var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
-    var featureRef = ref.child("favourites/"+timestampOfFavouriteAsKey);
-    featureRef.remove()
-    featureRef.limitToLast(numFavourites).once("value", function(snapshot){
-        var results = [];
+    var featureRef = ref.child("favourites");
+    featureRef.once("value", function(snapshot){
         snapshot.forEach(function(ss) {
-            results.push(ss.val());
+            //console.log(ss.key())
+            if(ss.val()===featureURL){
+                var removeRef = featureRef.child(ss.key());
+                removeRef.remove();
+            }
         });
-        cb(results.reverse());
     });
 }
 
 function all(optOffleash, cb){
-    setLocation();
-    if(optOffleash){
-        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
-        myFirebaseRef.once("value", function(snapshot) {
-            cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
-                .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
-        });
-    }
-    else{
-        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-        myFirebaseRef.child("Assets/AllServices").limitToFirst(3).once("value", function(snapshot) {
-            cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"]).concat(snapshot.val()[3]["features"]));
-        });
-    }
+    setLocation(function(pos){
+        myLat = pos.coords.latitude;
+        myLong = pos.coords.longitude;
+
+        if(optOffleash){
+            var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
+            myFirebaseRef.once("value", function(snapshot) {
+                cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
+                    .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
+            });
+        }
+        else{
+            var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
+            myFirebaseRef.child("Assets/AllServices").limitToFirst(3).once("value", function(snapshot) {
+                cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"]).concat(snapshot.val()[3]["features"]));
+            });
+        }
+    });
 }
 
 
@@ -355,4 +374,13 @@ function toRad(Value) {
 function toDeg(Value) {
     /** Converts radians to numeric degrees */
     return Value / Math.PI * 180;
+}
+
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] == obj) {
+            return true;
+        }
+    }
+    return false;
 }

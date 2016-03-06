@@ -198,14 +198,16 @@ function initMap() {
 
     // Set event listener for each feature.
     map.data.addListener('click', function(event) {
-        //console.log(event);
-        //console.log(event.latLng.lat(),event.latLng.lng());
+        console.log(event);
+        console.log(event.latLng.lat(),event.latLng.lng());
         //alert("clicked on marker!")
 
-        //TODO: load up card rather than just showing satelliteMap
 
-        //$("#satelliteMap").toggle()
-
+        $("#positionWindow").popup("open");
+        getFeatureByURL(event.feature.R.URL,function(feature){
+            updateLandmarkWithFeature(feature)
+        })
+        featureRefURL = event.feature.R.URL
         setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
@@ -218,6 +220,7 @@ function initMap() {
 //draw a list of GeoJSON objects
 function drawJSONList(list){
     list.forEach(function (obj) {
+        obj.properties["URL"] = obj.URL
         map.data.addGeoJson(obj);
     })
 }

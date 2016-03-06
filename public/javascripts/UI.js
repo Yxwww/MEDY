@@ -61,31 +61,59 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "mdb":
             checkUserLogin(pageId);
-            /*
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783901", "life is hard01");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783902", "life is hard02");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783903", "life is hard03");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783904", "life is hard04");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783905", "life is hard05");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783906", "life is hard06");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783907", "life is hard07");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783908", "life is hard08");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783909", "life is hard09");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783910", "life is hard10");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783911", "life is hard11");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783912", "life is hard12");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783913", "life is hard13");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783914", "life is hard14");
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783915", "life is hard15");
-            */
+
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard01");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard02");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard03");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard04");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard05");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard06");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard07");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard08");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard09");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard10");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard11");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard12");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard13");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard14");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard15");
+
             getComments("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", 10, function(comments){
                 console.log(comments);
             })
             //console.log(current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985",current_user.auth.uid);
-            getFavourites(current_user.auth.uid, 10, function(favourites){
-                console.log(favourites);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            /*
+            getFavourites(current_user.auth.uid, 100, function(favourites){
+                console.log(favourites)
+                console.log(favourites.indexOf("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964"))
+                if(favourites.indexOf("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964")!=-1){
+                    removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+                    console.log("Feature 1964 removed.")
+                    // if adding, just do nothing as favourite already exists
+                }
+                else{
+                    addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+                    console.log("Feature 1964 added.")
+                }
+                //removeFavourite(current_user.auth.uid, favourites[0].
             });
+            */
+
+            getFavourites(current_user.auth.uid, 100, function(favourites){
+                console.log(favourites);
+            })
+
+            getFeatureByURL("https://teammedy.firebaseio.com/Assets/AllServices/0/features/100", function(feature){
+                console.log(feature);
+            })
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
@@ -111,6 +139,9 @@ $(document).on('pagecontainershow', function(e, ui) {
                 });
             })
             break;
+        case "discover":
+                checkUserLogin(pageId);
+            break;
         default :
             console.log("not handled pageid: "+pageId );
     }
@@ -120,6 +151,9 @@ $(document).on('pagecontainershow', function(e, ui) {
 // MARK: UI Listener
 
 $(document).ready(function() {
+    $( function() {
+        $( "#positionWindow" ).enhanceWithin().popup();
+    });
     $('.FBLogin').tap(function(){
         var ref = new Firebase("https://teammedy.firebaseio.com");
         ref.authWithOAuthPopup("facebook", function(error, authData) {
@@ -144,6 +178,20 @@ $(document).ready(function() {
         ref.onAuth(authDataCallback);
     })
 
+    $("#comment_submit").tap(function(){
+        addComment(featureRefURL,current_user.auth.name,$('#comment').val())
+        $("#description_block").slideToggle(resizeSatMap)
+        $("#comment_block").slideToggle(resizeSatMap)
+        getComments(featureRefURL,3,function(comments){
+            //console.log(comments);
+            var commentsHTML = ""
+            comments.forEach(function(itr){
+                console.log(itr);
+                commentsHTML+='<b style="margin-left:2em;">'+itr.name.split(" ")[0]+'</b>: '+itr.comment+"</br>";
+            })
+            $('#feature_comment').html("Comments:<br/>"+commentsHTML);
+        })
+    })
     $("#leave_comment").tap(function(){
         //$('#description_block').html('').trigger("create");
         /*console.log($("#description_block").is(":visible"));
@@ -159,19 +207,25 @@ $(document).ready(function() {
         $("#comment_block").slideToggle(resizeSatMap)
     })
 
-    //TODO: port functionality to the map popups
-    $("#landmarkPopUpBtn").tap(function(){
-        console.log(" ");
 
-        //hardcoded for now
-        google.maps.event.trigger(satelliteMap, 'resize');
-        setSatelliteMapCenter(51.0770331,-114.1380119)
+    $(".landmarkPopUpBtn").tap(function(){
+        //var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980");
+        var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
+        featureRefURL = tempURL
+        getFeatureByURL(tempURL,function(feature){
+            console.log(feature);
+            updateLandmarkWithFeature(feature)
+            setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
+
+
+            
+        })
 
         //TODO: use landmark being selected rather than the oval
         var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
 
         //update distance
-        $("#landmarkDistance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
+        $("#feature_distance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
 
         //TODO: RUN THIS WHEN POPUP POPS UP
         //var calg = new google.maps.LatLng(51.0453 ,-114.0581)
@@ -183,7 +237,7 @@ $(document).ready(function() {
             //alert("my response = " + response)
 
             //DO WORK
-            $("#landmarkTravelTime").text("ETA: " + response)
+            $("#feature_ETA").text("ETA: " + response)
 
 
         }, function(error){
@@ -196,6 +250,7 @@ $(document).ready(function() {
 
 
     })
+
 
     $("#refreshNearby").tap(function(){
         google.maps.event.trigger(satelliteMap, 'resize');
@@ -213,6 +268,26 @@ $(document).ready(function() {
         }
     }
 });
+function updateLandmarkWithFeature(feature){
+    $('#feature_comment').html("Comments:");
+    if(feature.properties.hasOwnProperty("NAME")){
+        $("#feature_name").html(feature.properties["NAME"]);
+    }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
+        $("#feature_name").html(feature.properties["ASSET_TYPE"]);
+    }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
+        $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
+    }
+    getComments(feature.URL,3,function(comments){
+        //console.log(comments);
+        var commentsHTML = ""
+        comments.forEach(function(itr){
+            console.log(itr);
+            commentsHTML+='<b style="margin-left:2em;">'+itr.name.split(" ")[0]+'</b>: '+itr.comment+"</br>";
+        })
+        $('#feature_comment').html("Comments:<br/>"+commentsHTML);
+    })
+}
+
 function navToPageWithTransition(pageID,transition){
     $( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+pageID, { role: "page",transition:transition } );
 }
