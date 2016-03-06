@@ -388,12 +388,12 @@ $(document).ready(function() {
             }
             else if (navigator.userAgent.match(/Android/i)){
                 mapLink = "http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll="
-                alert("android - opening link: " + mapLink)
+                //alert("android - opening link: " + mapLink)
                 window.location = mapLink
             }
             else{
                 mapLink = "http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll="
-                alert("web - opening link: " + mapLink)
+                //alert("web - opening link: " + mapLink)
                 window.open(mapLink)
             }
 

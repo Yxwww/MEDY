@@ -291,19 +291,3 @@ function getTravelTime(p1, p2){
     })
 
 }
-//TODO: delete
-function linkToMap(){
-    // If it's an iPhone..
-    if( (navigator.platform.indexOf("iPhone") != -1)
-        || (navigator.platform.indexOf("iPod") != -1)
-        || (navigator.platform.indexOf("iPad") != -1))
-        window.open("maps://maps.google.com/maps?daddr=lat,long&amp;ll=");
-    else
-        window.open("http://maps.google.com/maps?daddr=lat,long&amp;ll=");
-}
-
-function clearMap(){
-    map.data.forEach(function(feature) {
-        map.data.remove(feature);
-    });
-}
