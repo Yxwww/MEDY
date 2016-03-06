@@ -41,6 +41,10 @@ input{font-weight:bold !important;}
     background-color: #1dc116;
 }
 
+#directionsBtn{
+    float: right !important;
+}
+
 .ui-btntext-small{
     font-size: 11px;
 }
