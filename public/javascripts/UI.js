@@ -146,7 +146,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1977",current_user.auth.uid);
             //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1976",current_user.auth.uid);
             //console.log(current_user.auth.uid);
-            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
@@ -212,57 +212,59 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "discover":
             checkUserLogin(pageId);
-            var el = document.getElementById("favourites-listview");
-            if (el) {
-                while (el.hasChildNodes()) {
-                    el.removeChild(el.childNodes[0]);
-                }
-            }
-            getFavourites(current_user.auth.uid, 10, function(favourites){
-                favourites.forEach(function(favourite,index,array) {
-                    getFeatureByURL(favourite, function(feature){
-                        console.log(feature);
-                        var name = ""
-                        if(feature.properties.hasOwnProperty("NAME")){
-                            name = feature.properties["NAME"]
-                        }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
-                            name = feature.properties["ASSET_TYPE"]
-                        }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
-                            name = feature.properties["PARCEL_LOCATION"]
-                        }
-                        var btn_html = '<li><a id="history_button'+(index)+'" data-btn-URL="'+feature.URL+'" href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" class="history_cell">'+name+'</a></li>'
-                        $("#favourites-listview").append(btn_html);
-                        console.log(btn_html);
-                        console.log(feature);
-                        //$("#history_button1").attr("data-btn-URL","123321")
-                        $("#favourites-listview").listview("refresh")
-                        /*if(feature["properties"].hasOwnProperty("NAME")){
-                            $('#favourites-listview').append(
-                                '<li data-theme="c">' +
-                                '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
-                                feature["properties"]["NAME"] +
-                                '</a>' +
-                                '</li>'
-                            );
-                        }
-                        else if(feature["properties"].hasOwnProperty("ASSET_TYPE")){
-                            $('#favourites-listview').append(
-                                '<li data-theme="c">' +
-                                '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
-                                feature["properties"]["ASSET_TYPE"] +
-                                '</a>' +
-                                '</li>'
-                            );
-                        }*/
-                    });
-                });
-            });
+            refreshFavList()
             break;
         default :
             console.log("not handled pageid: "+pageId );
     }
 });
-
+var refreshFavList = function(){
+    var el = document.getElementById("favourites-listview");
+    if (el) {
+        while (el.hasChildNodes()) {
+            el.removeChild(el.childNodes[0]);
+        }
+    }
+    getFavourites(current_user.auth.uid, 10, function(favourites){
+        favourites.forEach(function(favourite,index,array) {
+            getFeatureByURL(favourite, function(feature){
+                console.log(feature);
+                var name = ""
+                if(feature.properties.hasOwnProperty("NAME")){
+                    name = feature.properties["NAME"]
+                }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
+                    name = feature.properties["ASSET_TYPE"]
+                }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
+                    name = feature.properties["PARCEL_LOCATION"]
+                }
+                var btn_html = '<li><a id="history_button'+(index)+'" data-btn-URL="'+feature.URL+'" href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" class="history_cell">'+name+'</a></li>'
+                $("#favourites-listview").append(btn_html);
+                console.log(btn_html);
+                console.log(feature);
+                //$("#history_button1").attr("data-btn-URL","123321")
+                $("#favourites-listview").listview("refresh")
+                /*if(feature["properties"].hasOwnProperty("NAME")){
+                 $('#favourites-listview').append(
+                 '<li data-theme="c">' +
+                 '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
+                 feature["properties"]["NAME"] +
+                 '</a>' +
+                 '</li>'
+                 );
+                 }
+                 else if(feature["properties"].hasOwnProperty("ASSET_TYPE")){
+                 $('#favourites-listview').append(
+                 '<li data-theme="c">' +
+                 '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
+                 feature["properties"]["ASSET_TYPE"] +
+                 '</a>' +
+                 '</li>'
+                 );
+                 }*/
+            });
+        });
+    });
+}
 
 // MARK: UI Listener
 
@@ -297,6 +299,9 @@ $(document).ready(function() {
         console.log("111", e.target.getAttribute("data-btn-url"));
         popUpWithURL(e.target.getAttribute("data-btn-url"))
     })
+    $( "#positionWindow" ).bind({
+        popupafterclose: function(event, ui) { refreshFavList() }
+    });
     $("#favourites-listview").on("tap",".history_cell",function(e){
         console.log("111", e.target.getAttribute("data-btn-url"));
         popUpWithURL(e.target.getAttribute("data-btn-url"))
