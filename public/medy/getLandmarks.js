@@ -4,6 +4,7 @@
 
 var myLat = 51.046154;
 var myLong = -114.057419;
+var located = false;
 
 function setLocation(successCB){
     navigator.geolocation.getCurrentPosition(successCB, error, options);
@@ -146,7 +147,7 @@ function all(optOffleash, cb){
     setLocation(function(pos){
         myLat = pos.coords.latitude;
         myLong = pos.coords.longitude;
-
+        located = true;
         if(optOffleash){
             var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
             myFirebaseRef.once("value", function(snapshot) {

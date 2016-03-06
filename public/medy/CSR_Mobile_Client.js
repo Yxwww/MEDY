@@ -235,9 +235,8 @@ function initMap() {
 //draw a list of GeoJSON objects
 function drawJSONList(list){
     list.forEach(function (obj) {
-        console.log(obj);
-        obj.properties["URL"] = obj.URL
 
+        obj.properties["URL"] = obj.URL
         map.data.addGeoJson(obj);
     })
 }
