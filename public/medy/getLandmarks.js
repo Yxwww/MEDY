@@ -29,27 +29,13 @@ function all(optOffleash, cb){
     if(optOffleash){
         var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
         myFirebaseRef.once("value", function(snapshot) {
-            //console.log(snapshot.val()[0])
-            for(var i = 0; i < 4; i++){
-                for(var j = 0; j < snapshot.val()[i].length; j++){
-                    snapshot.val()[i]["features"][j]["URL"] = snapshot.ref().toString() + "/" + i + "/features/" + j;
-                    console.log("do this")
-                    snapshot.val()[i]["features"][j]["setComment"] = function(uid, comment){
-                        var ref = new Firebase(snapshot.ref().toString() + "/" + i + "/features/" + j);
-                        var featureRef = ref.child("feedback/ratings");
-                        featureRef.set({
-                            uid: comment
-                        });
-                    }
-                }
-            }
             cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
                 .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
         });
     }
     else{
         var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-        myFirebaseRef.child("Assets/AllServices").limitToFirst(3).on("value", function(snapshot) {
+        myFirebaseRef.child("Assets/AllServices").limitToFirst(3).once("value", function(snapshot) {
             cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"]).concat(snapshot.val()[3]["features"]));
         });
     }
@@ -164,7 +150,7 @@ function filterByNearest(result, numResults, cb){
 function addFeedbackStructure(){
     console.log("add feedback structure");
     var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/2/features/");
-    myFirebaseRef.orderByKey().startAt("0").endAt("1000").on("value", function(snapshot) {
+    myFirebaseRef.orderByKey().startAt("0").endAt("1000").once("value", function(snapshot) {
         result = snapshot.val();
         //var path = "";
         //for(var assetTableKey in result){
@@ -225,7 +211,7 @@ function addFullURL(){
 /*
 exports.replacePolygons = function(){
     var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-    myFirebaseRef.child("Assets/AllServices/3/features").limitToFirst(1000).on("value", function(snapshot) {
+    myFirebaseRef.child("Assets/AllServices/3/features").limitToFirst(1000).once("value", function(snapshot) {
         result = snapshot.val();
         //var path = "";
         //for(var assetTableKey in result){
