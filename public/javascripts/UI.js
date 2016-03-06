@@ -106,6 +106,12 @@ $(document).on('pagecontainershow', function(e, ui) {
                 //removeFavourite(current_user.auth.uid, favourites[0].
             });
             */
+
+            getFavourites(current_user.auth.uid, 100, function(favourites){
+                console.log(favourites);
+            })
+
+            getFeatureByURL("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980")
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map

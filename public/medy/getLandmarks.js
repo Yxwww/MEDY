@@ -47,6 +47,14 @@ function getComments(featureURL, numComments, cb){
     });
 }
 
+function getFeatureByURL(featureURL, cb){
+    var ref = new Firebase(featureURL);
+    ref.once("value", function(snapshot){
+        console.log(snapshot.val());
+        //cb(results.reverse());
+    });
+}
+
 function addFavourite(featureURL, UID){
     getFavourites(current_user.auth.uid, 100, function(favourites){
         if(favourites.indexOf(featureURL) != -1){
