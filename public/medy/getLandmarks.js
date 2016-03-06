@@ -106,15 +106,15 @@ function removeFavourite2(featureURL, UID, cb){
     featureRef.once("value", function(snapshot){
         console.log(snapshot.val())
         if(snapshot.val() == null){
-            alert("add")
+            //alert("add")
             cb(featureURL, UID);
         }
         else{
             snapshot.forEach(function(ss) {
                 //console.log(ss.)
-                console.log("val " + ss.val())
+                //console.log("val " + ss.val())
                 if(ss.val() == featureURL){
-                    console.log("MATCH")
+                    //console.log("MATCH")
                     var removeRef = featureRef.child(ss.key());
                     //removeRef.remove(cb(featureURL, UID));
                     //alert("whatever2")
