@@ -224,7 +224,6 @@ $(document).ready(function() {
         var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
         featureRefURL = tempURL
         getFeatureByURL(tempURL,function(feature){
-            alert(feature)
             console.log(feature);
             updateLandmarkWithFeature(feature)
             setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
@@ -301,7 +300,7 @@ function updateLandmarkWithFeature(feature){
         $("#feature_ETA").text("ETA: " + response)
 
     }, function(error){
-        alert("failed")
+        console.log("failed to get ETA")
     })
 
 
