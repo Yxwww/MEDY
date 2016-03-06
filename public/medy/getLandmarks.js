@@ -24,13 +24,13 @@ function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 };
 
-function addComment(featureURL, UID, comment){
+function addComment(featureURL, name, comment){
     var ref = new Firebase(featureURL);
     var featureRef = ref.child("feedback/comments");
     var package = {};
     var currentMilliseconds = new Date().getTime();
     package[currentMilliseconds] = {};
-    package[currentMilliseconds]["UID"] = UID;
+    package[currentMilliseconds]["name"] = name;
     package[currentMilliseconds]["comment"] = comment;
     featureRef.update(package);
 }
