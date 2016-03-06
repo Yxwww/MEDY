@@ -24,6 +24,16 @@ function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 };
 
+function addComment(featureURL, UID, comment){
+    var ref = new Firebase(featureURL);
+    var featureRef = ref.child("feedback/comments");
+    console.log("huh")
+    var package = {};
+    package[UID] = comment;
+    console.log(package)
+    featureRef.update(package);
+}
+
 function all(optOffleash, cb){
     setLocation();
     if(optOffleash){

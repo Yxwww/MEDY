@@ -52,7 +52,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             console.log(current_user.auth.profileImageURL)
             break;
         case "mdb":
-            addFullURL();
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783993", "life is hard");
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
