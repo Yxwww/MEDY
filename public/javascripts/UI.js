@@ -164,6 +164,7 @@ $(document).ready(function() {
         console.log(" ");
 
         //hardcoded for now
+        google.maps.event.trigger(satelliteMap, 'resize');
         setSatelliteMapCenter(51.0770331,-114.1380119)
 
         //TODO: use landmark being selected rather than the oval
@@ -191,6 +192,8 @@ $(document).ready(function() {
 
 
         //TODO: set landmark's name
+
+
 
     })
 
