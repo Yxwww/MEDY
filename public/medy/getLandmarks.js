@@ -76,6 +76,7 @@ function getFavourites(UID, numFavourites, cb){
     featureRef.limitToLast(numFavourites).once("value", function(snapshot){
         var results = [];
         snapshot.forEach(function(ss) {
+            console.log("each fav")
             results.push(ss.val());
         });
         cb(results.reverse());
@@ -93,6 +94,18 @@ function removeFavourite(featureURL, UID){
                 var removeRef = featureRef.child(ss.key());
                 removeRef.remove();
             }
+        });
+    });
+}
+
+function mapAllFavourites(uid){
+    navToPageWithTransition("nearby", {transition : "slide"});
+    getFavourites(uid, 10, function(favourites){
+        favourites.forEach(function(favourite){
+            clearMap();
+            getFeatureByURL(favourite, function(favObject){
+                drawJSONList([favObject]);
+            })
         });
     });
 }

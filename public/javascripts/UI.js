@@ -198,8 +198,38 @@ $(document).on('pagecontainershow', function(e, ui) {
             })
             break;
         case "discover":
-                checkUserLogin(pageId);
-
+            checkUserLogin(pageId);
+            var el = document.getElementById("favourites-listview");
+            if (el) {
+                while (el.hasChildNodes()) {
+                    el.removeChild(el.childNodes[0]);
+                }
+            }
+            getFavourites(current_user.auth.uid, 10, function(favourites){
+                favourites.forEach(function(favourite) {
+                    getFeatureByURL(favourite, function(feature){
+                        console.log(feature);
+                        if(feature["properties"].hasOwnProperty("NAME")){
+                            $('#favourites-listview').append(
+                                '<li data-theme="c">' +
+                                '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
+                                feature["properties"]["NAME"] +
+                                '</a>' +
+                                '</li>'
+                            );
+                        }
+                        else if(feature["properties"].hasOwnProperty("ASSET_TYPE")){
+                            $('#favourites-listview').append(
+                                '<li data-theme="c">' +
+                                '<a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">' +
+                                feature["properties"]["ASSET_TYPE"] +
+                                '</a>' +
+                                '</li>'
+                            );
+                        }
+                    });
+                });
+            });
             break;
         default :
             console.log("not handled pageid: "+pageId );

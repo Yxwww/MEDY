@@ -301,3 +301,9 @@ function linkToMap(){
     else
         window.open("http://maps.google.com/maps?daddr=lat,long&amp;ll=");
 }
+
+function clearMap(){
+    map.data.forEach(function(feature) {
+        map.data.remove(feature);
+    });
+}

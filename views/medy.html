@@ -160,22 +160,12 @@
         <div class="ui-corner-all custom-corners">
             <div class="ui-bar ui-bar-a">
                 <h2>Favorites</h2>
-                <a class="ui-btn-right ui-btntext-small" data-role="button" data-icon="arrow-r" style="height: 8px" data-iconpos="right" data-position="right" data-inline="true" href="#page4">Show All</a>
+                <a class="ui-btn-right ui-btntext-small" onclick="mapAllFavourites(current_user.auth.uid)" data-role="button" data-icon="arrow-r" style="height: 8px" data-iconpos="right" data-position="right" data-inline="true" href="#page4">Show All</a>
             </div>
             <div class="ui-body ui-body-a">
-                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                <ul data-role="listview" id="favourites-listview" class="listview" data-divider-theme="b" data-inset="true">
                     <li data-theme="c">
                         <a href="" data-transition="slide">
-                            Button
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page2" data-transition="slide">
-                            Button
-                        </a>
-                    </li>
-                    <li data-theme="c">
-                        <a href="#page2" data-transition="slide">
                             Button
                         </a>
                     </li>
@@ -183,7 +173,7 @@
             </div>
         </div>
 
-        <a href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">Popup</a>
+        <a href="#positionWindow" data-rel="popup" data-role="button" data-position-to="window" data-transition="flip" class="landmarkPopUpBtn">Popup</a>
 
     </div>
 
