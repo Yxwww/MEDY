@@ -50,8 +50,8 @@ function getComments(featureURL, numComments, cb){
 function getFeatureByURL(featureURL, cb){
     var ref = new Firebase(featureURL);
     ref.once("value", function(snapshot){
-        console.log(snapshot.val());
-        //cb(results.reverse());
+        //console.log(snapshot.val());
+        cb(snapshot.val());
     });
 }
 
