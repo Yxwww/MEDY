@@ -48,8 +48,8 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "profile":
             checkUserLogin();
-            console.log("profile page");
-            // Sync with User data
+            $('#profileImage').attr("src",current_user.auth.profileImageURL)
+            console.log(current_user.auth.profileImageURL)
             break;
         case "mdb":
             addFeedbackStructure();
