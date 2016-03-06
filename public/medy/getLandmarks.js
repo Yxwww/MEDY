@@ -2,12 +2,12 @@
  * Created by edwinchan on 3/4/2016.
  */
 
-function setLocation(){
-    navigator.geolocation.getCurrentPosition(success, error, options);
-}
-
 var myLat = 51.046154;
 var myLong = -114.057419;
+
+function setLocation(successCB){
+    navigator.geolocation.getCurrentPosition(successCB, error, options);
+}
 
 var options = {
     enableHighAccuracy: true,
@@ -15,13 +15,9 @@ var options = {
     maximumAge: 0
 };
 
-function success(pos) {
-    myLat = pos.coords.latitude;
-    myLong = pos.coords.longitude;
-};
-
 function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
+    alert("Could not load your location.");
 };
 
 function addComment(featureURL, name, comment){
@@ -101,20 +97,24 @@ function removeFavourite(featureURL, UID){
 }
 
 function all(optOffleash, cb){
-    setLocation();
-    if(optOffleash){
-        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
-        myFirebaseRef.once("value", function(snapshot) {
-            cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
-                .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
-        });
-    }
-    else{
-        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-        myFirebaseRef.child("Assets/AllServices").limitToFirst(3).once("value", function(snapshot) {
-            cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"]).concat(snapshot.val()[3]["features"]));
-        });
-    }
+    setLocation(function(pos){
+        myLat = pos.coords.latitude;
+        myLong = pos.coords.longitude;
+
+        if(optOffleash){
+            var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
+            myFirebaseRef.once("value", function(snapshot) {
+                cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
+                    .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
+            });
+        }
+        else{
+            var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
+            myFirebaseRef.child("Assets/AllServices").limitToFirst(3).once("value", function(snapshot) {
+                cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"]).concat(snapshot.val()[3]["features"]));
+            });
+        }
+    });
 }
 
 
