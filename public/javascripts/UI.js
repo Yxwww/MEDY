@@ -72,7 +72,34 @@ $(document).on('pagecontainershow', function(e, ui) {
                     $('#profileImage').attr("src",current_user.auth.profileImageURL)
                     $(".profileName h3").html(current_user.auth.name)
                     getHistory(current_user.auth.uid, 100, function(history){
-                        console.log(history)
+                        //console.log($($('#history_list').children()[0]).html('<a href="#">Acura</a>'))
+                        //console.log($("#history_button1").children())
+                        //$("#history_button1").html(history[0]);
+                        //$("#history_button1").listview( "refresh" );
+                       // $("#history_list").listview( "refresh" );
+                        $('#history_list').empty()
+                        var btnCount = 0
+                        var maxBtn = Math.min(3,history.length);
+                        [0,1,2].forEach(function(item,index,array){
+                            if(history[index]!=undefined){
+                                getFeatureByURL(history[index],function(feature){
+                                    var name = ""
+                                    if(feature.properties.hasOwnProperty("NAME")){
+                                        name = feature.properties["NAME"]
+                                    }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
+                                        name = feature.properties["ASSET_TYPE"]
+                                    }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
+                                        name = feature.properties["PARCEL_LOCATION"]
+                                    }
+                                    var btn_html = '<li><a id="history_button'+(index)+'" data-btn-URL="'+feature.URL+'" href="#positionWindow" data-rel="popup" data-role="button"data-position-to="window" data-transition="flip" class="history_cell">'+name+'</a></li>'
+                                    $("#history_list").append(btn_html);
+                                    console.log(btn_html);
+                                    console.log(feature);
+                                    //$("#history_button1").attr("data-btn-URL","123321")
+                                    $("#history_list").listview("refresh")
+                                })
+                            }
+                        })
                     })
                 }
             });
@@ -172,6 +199,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "discover":
                 checkUserLogin(pageId);
+
             break;
         default :
             console.log("not handled pageid: "+pageId );
@@ -208,7 +236,10 @@ $(document).ready(function() {
         ref.unauth();
         ref.onAuth(authDataCallback);
     })
-
+    $("#history_list").on("tap",".history_cell",function(e){
+        //console.log("111", e.target.getAttribute("data-btn-url"));
+        popUpWithURL(e.target.getAttribute("data-btn-url"))
+    })
     $("#comment_submit").tap(function(){
         addComment(featureRefURL,current_user.auth.name,$('#comment').val())
         $("#description_block").slideToggle(resizeSatMap)
@@ -238,7 +269,16 @@ $(document).ready(function() {
         $("#comment_block").slideToggle(resizeSatMap)
     })
 
-
+    function popUpWithURL(URL){
+        //var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980");
+        var tempURL = URL;
+        featureRefURL = tempURL
+        getFeatureByURL(tempURL,function(feature){
+            console.log(feature);
+            updateLandmarkWithFeature(feature)
+            setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
+        })
+    }
     $(".landmarkPopUpBtn").tap(function(){
         //var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980");
         var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
@@ -309,7 +349,7 @@ function updateLandmarkWithFeature(feature){
     }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
         $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
     }
-    //addHistory(feature.URL,current_user.auth.uid);
+    addHistory(feature.URL,current_user.auth.uid);
 
     var featureLocation = new google.maps.LatLng(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"])
 
