@@ -11,6 +11,7 @@ $( document ).bind( 'pageinit', function(){
 });
 // page handler
 $(document).on("pageinit",function(){
+    google.maps.event.addDomListener(window, "load", initMap);
 
 
 })

@@ -232,7 +232,7 @@ function setSatelliteMapCenter(lat,lng){
 //TODO: REALLY need to get this working so that the map ALWAYS loads before we try to access it
 //error = "google is not defined"
 //initialize map immediately when page loads
-google.maps.event.addDomListener(window, "load", initMap);
+//google.maps.event.addDomListener(window, "load", initMap);
 
 
 
