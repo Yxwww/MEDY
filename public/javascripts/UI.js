@@ -99,6 +99,17 @@ $(document).ready(function() {
         ref.unauth();
         ref.onAuth(authDataCallback);
     })
+    $("#leave_comment").tap(function(){
+        //$('#description_block').html('').trigger("create");
+        console.log($("#description_block").is(":visible"));
+        console.log($("#comment_block").is(":visible"));
+        $("#description_block").slideToggle()
+        $("#comment_block").slideToggle()
+    })
+    $("#comment_cancel").tap(function(){
+        $("#description_block").slideToggle()
+        $("#comment_block").slideToggle()
+    })
     function authDataCallback(authData) {
         if (authData) {
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
@@ -112,4 +123,11 @@ $(document).ready(function() {
 });
 function navToPageWithTransition(pageID,transition){
     $( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+pageID, { role: "page",transition:transition } );
+}
+
+$(function(){
+    $( "#popup-outside-page" ).enhanceWithin().popup();
+});
+function openLandmarkDetailView(){
+    $( "#popup-outside-page").popup("open");
 }
