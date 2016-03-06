@@ -158,23 +158,45 @@ $(document).ready(function() {
         $("#description_block").slideToggle(resizeSatMap)
         $("#comment_block").slideToggle(resizeSatMap)
     })
+
+    //TODO: port functionality to the map popups
     $("#landmarkPopUpBtn").tap(function(){
         console.log(" ");
+
+        //hardcoded for now
         setSatelliteMapCenter(51.0770331,-114.1380119)
+
+        //TODO: use landmark being selected rather than the oval
+        var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
+
+        //update distance
+        $("#landmarkDistance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
+
+        //TODO: RUN THIS WHEN POPUP POPS UP
+        //var calg = new google.maps.LatLng(51.0453 ,-114.0581)
+        //var ed = new google.maps.LatLng(53.5333,-113.5000)
+
+        //alert("promise result = " + getTravelTime(calg,ed))
+
+        getTravelTime(initialLocation,olyOval).then(function(response){
+            //alert("my response = " + response)
+
+            //DO WORK
+            $("#landmarkTravelTime").text("ETA: " + response)
+
+
+        }, function(error){
+            alert("failed")
+        })
+
+
+        //TODO: set landmark's name
 
     })
 
     $("#refreshNearby").tap(function(){
         google.maps.event.trigger(satelliteMap, 'resize');
-
-
-
-        //TODO: delete this after testing distance and ETA
-        var calg = new google.maps.LatLng(51.0453 ,-114.0581)
-        var ed = new google.maps.LatLng(49.246292,-123.116226)
-
-        alert("distance = " + getDistance(calg,ed))
-
+        map.setCenter(initialLocation)
     })
 
     function authDataCallback(authData) {

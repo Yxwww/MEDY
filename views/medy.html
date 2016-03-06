@@ -14,7 +14,7 @@
         <script  type="application/javascript" src="../medy/CSR_Mobile_Client.js"></script>
 
         <script defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFWfin5Nb58brp51h4kxGcgkIONvionlU&callback=initMap&libraries=geometry">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFWfin5Nb58brp51h4kxGcgkIONvionlU&libraries=geometry&callback=initMap">
         </script>
 
         <script  type="application/javascript" src="../medy/getLandmarks.js"></script>
@@ -216,8 +216,8 @@
             <div id="description_block">
                 <div id="satelliteMap" class="ui_map"></div>
                 <!--<img src="images/glenmorePark.jpg"  height="200" width="313"/> -->
-                <p>Distance: 4 km</p>
-                <p>ETA: 25 minutes</p>
+                <p id="landmarkDistance">Distance: 4 km</p>
+                <p id="landmarkTravelTime">ETA: 25 minutes</p>
                 <p>Comments: </p>
             </div>
             <div id="comment_block" style="display:none;">
