@@ -166,6 +166,15 @@ $(document).ready(function() {
 
     $("#refreshNearby").tap(function(){
         google.maps.event.trigger(satelliteMap, 'resize');
+
+
+
+        //TODO: delete this after testing distance and ETA
+        var calg = new google.maps.LatLng(51.0453 ,-114.0581)
+        var ed = new google.maps.LatLng(49.246292,-123.116226)
+
+        alert("distance = " + getDistance(calg,ed))
+
     })
 
     function authDataCallback(authData) {
@@ -189,3 +198,5 @@ $(function(){
 function openLandmarkDetailView(){
     $( "#popup-outside-page").popup("open");
 }
+
+

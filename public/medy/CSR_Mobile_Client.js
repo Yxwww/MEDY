@@ -227,8 +227,17 @@ function drawJSONList(list){
 function setSatelliteMapCenter(lat,lng){
     google.maps.event.trigger(satelliteMap, 'resize');
     satelliteMap.setZoom(16)
-    satelliteMap.setCenter(new google.maps.LatLng(51.0770333100886, -114.13568838838398))
+    satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
 }
 
 
+//input: p1, p2 are google.maps.LatLang objects
+//tested as working correctly between calgary & edmonton, and calgary & vancouver (based on google maps' distance search)
+function getDistance(p1, p2){
+    return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+}
+
+function getETA(){
+
+}
 
