@@ -27,9 +27,22 @@ function error(err) {
 function all(optOffleash, cb){
     setLocation();
     if(optOffleash){
-        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-        myFirebaseRef.child("Assets/AllServices").on("value", function(snapshot) {
+        var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices");
+        myFirebaseRef.once("value", function(snapshot) {
             //console.log(snapshot.val()[0])
+            for(var i = 0; i < 4; i++){
+                for(var j = 0; j < snapshot.val()[i].length; j++){
+                    snapshot.val()[i]["features"][j]["URL"] = snapshot.ref().toString() + "/" + i + "/features/" + j;
+                    console.log("do this")
+                    snapshot.val()[i]["features"][j]["setComment"] = function(uid, comment){
+                        var ref = new Firebase(snapshot.ref().toString() + "/" + i + "/features/" + j);
+                        var featureRef = ref.child("feedback/ratings");
+                        featureRef.set({
+                            uid: comment
+                        });
+                    }
+                }
+            }
             cb(snapshot.val()[0]["features"].concat(snapshot.val()[1]["features"])
                 .concat(snapshot.val()[2]["features"].concat(snapshot.val()[3]["features"])));
         });
@@ -41,6 +54,7 @@ function all(optOffleash, cb){
         });
     }
 }
+
 
 function filterByCategory(result, optSportsAndRecreation, optPark, optCommunity, optAttraction, cb){
     var categoryDictionary = {};
@@ -149,8 +163,8 @@ function filterByNearest(result, numResults, cb){
 
 function addFeedbackStructure(){
     console.log("add feedback structure");
-    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/");
-    myFirebaseRef.child("Assets/AllServices/3/features").limitToFirst(1000).on("value", function(snapshot) {
+    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/2/features/");
+    myFirebaseRef.orderByKey().startAt("0").endAt("1000").on("value", function(snapshot) {
         result = snapshot.val();
         //var path = "";
         //for(var assetTableKey in result){
@@ -160,19 +174,14 @@ function addFeedbackStructure(){
         for(var featureKey in result){
             if(result.hasOwnProperty(featureKey)){
                 var path = featureKey + "/";
-                console.log(path);
+                //console.log(featureKey);
 
+                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/2/features/" + featureKey + "/");
+                var featureRef = ref.child("feedback");
 
-                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features");
-                var featureRef = ref.child(featureKey);
-
-                featureRef.push({
-                    feedback:{
-                        ratings:{
-
-                        },
-                        meanRating: 0
-                    }
+                featureRef.set({
+                    ratings:{},
+                    meanRating: 0
                 });
             }
         }
@@ -181,6 +190,37 @@ function addFeedbackStructure(){
         //}
     });
 }
+
+function addFullURL(){
+    console.log("add full URL path");
+    var myFirebaseRef = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/");
+    myFirebaseRef.orderByKey().startAt("500").endAt("2500").once("value", function(snapshot) {
+        result = snapshot.val();
+        //var path = "";
+        //for(var assetTableKey in result){
+        //if(result.hasOwnProperty(assetTableKey)){
+        //if(result[assetTableKey].hasOwnProperty("features")) {
+        //if(result.hasOwnProperty("features")) {
+        for(var featureKey in result){
+            if(result.hasOwnProperty(featureKey)){
+                var path = featureKey + "/";
+                //console.log(featureKey);
+
+                var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/");
+                var featureRef = ref.child(featureKey);
+
+                //console.log("https://teammedy.firebaseio.com" + ref.path + "/" + featureKey);
+                featureRef.update({
+                    URL: "https://teammedy.firebaseio.com" + ref.path + "/" + featureKey
+                });
+            }
+        }
+        //}
+        //}
+        //}
+    });
+}
+
 
 /*
 exports.replacePolygons = function(){

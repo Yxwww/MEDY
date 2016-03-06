@@ -52,7 +52,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             console.log(current_user.auth.profileImageURL)
             break;
         case "mdb":
-            addFeedbackStructure();
+            addFullURL();
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
