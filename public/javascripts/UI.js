@@ -62,7 +62,26 @@ $(document).on('pagecontainershow', function(e, ui) {
 
             break;
         case "mdb":
-            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783993", "life is hard");
+            /*
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783901", "life is hard01");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783902", "life is hard02");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783903", "life is hard03");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783904", "life is hard04");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783905", "life is hard05");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783906", "life is hard06");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783907", "life is hard07");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783908", "life is hard08");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783909", "life is hard09");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783910", "life is hard10");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783911", "life is hard11");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783912", "life is hard12");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783913", "life is hard13");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783914", "life is hard14");
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783915", "life is hard15");
+            */
+            getComments("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", 10, function(comments){
+                console.log(comments);
+            })
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map

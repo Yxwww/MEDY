@@ -27,11 +27,25 @@ function error(err) {
 function addComment(featureURL, UID, comment){
     var ref = new Firebase(featureURL);
     var featureRef = ref.child("feedback/comments");
-    console.log("huh")
     var package = {};
-    package[UID] = comment;
-    console.log(package)
+    //var currentTime = new Date();
+    var currentMilliseconds = new Date().getTime();
+    package[currentMilliseconds] = {};
+    package[currentMilliseconds]["UID"] = UID;
+    package[currentMilliseconds]["comment"] = comment;
     featureRef.update(package);
+}
+
+function getComments(featureURL, numComments, cb){
+    var ref = new Firebase(featureURL);
+    var featureRef = ref.child("feedback/comments");
+    featureRef.limitToLast(numComments).once("value", function(snapshot){
+        var results = [];
+        snapshot.forEach(function(ss) {
+            results.push(ss.val());
+        });
+        cb(results.reverse());
+    });
 }
 
 function all(optOffleash, cb){
