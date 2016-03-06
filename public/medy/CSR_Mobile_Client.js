@@ -157,6 +157,9 @@ function initMap() {
     $("#map").height($(window).height() - 130)
     $("#map").width($(window).width())
 
+    $("#positionWindow").width($(window).width() - 75)
+
+
     //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
