@@ -303,22 +303,27 @@ $(document).ready(function() {
 
             var lat = feature.geometry.coordinates["1"]
             var lng = feature.geometry.coordinates["0"]
+            var mapLink;
 
             // iDevice link
             if( (navigator.platform.indexOf("iPhone") != -1)
                 || (navigator.platform.indexOf("iPod") != -1)
                 || (navigator.platform.indexOf("iPad") != -1)){
 
-
-                //alert("//maps.google.com/maps?saddr=&" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
-
-                //uses maps: at the start
-                //window.open("maps://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=");
-                window.open("http://maps.apple.com/?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr=" + lat + "," + lng + "&dirflg=r")
-
+                mapLink = "http://maps.apple.com/?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr=" + lat + "," + lng + "&dirflg=d"
+                //alert("iDevice - opening link: " + mapLink)
+                window.location = mapLink
             }
-            else
-                window.open("http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
+            else if (navigator.userAgent.match(/Android/i)){
+                mapLink = "http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll="
+                alert("android - opening link: " + mapLink)
+                window.location = mapLink
+            }
+            else{
+                mapLink = "http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll="
+                alert("web - opening link: " + mapLink)
+                window.open(mapLink)
+            }
 
         })
 
