@@ -12,8 +12,21 @@ $( document ).bind( 'pageinit', function(){
 // page handler
 $(document).on("pageinit",function(){
     google.maps.event.addDomListener(window, "load", initMap);
-
-
+    $("#checkbox-favourite").click(function (event) {
+        event.stopPropagation();
+        getFavourites(current_user.auth.uid, 100, function(favourites){
+            console.log(favourites.indexOf(featureRefURL))
+            if(favourites.indexOf(featureRefURL)!=-1){
+                removeFavourite(featureRefURL, current_user.auth.uid);
+                console.log(featureRefURL + " removed from favourites.")
+                // if adding, just do nothing as favourite already exists
+            }
+            else{
+                addFavourite(featureRefURL, current_user.auth.uid);
+                console.log(featureRefURL + " added to favourites.")
+            }
+        });
+    });
 })
 
 
