@@ -18,7 +18,7 @@ $(document).on("pageinit",function(){
 
 
 
-function checkUserLogin(pageId){
+function checkUserLogin(pageId,cb){
     var ref = new Firebase("https://teammedy.firebaseio.com");
     var authData = ref.getAuth();
     if (authData) {
@@ -33,6 +33,7 @@ function checkUserLogin(pageId){
             console.log("user already logged in Log in");
             navToPageWithTransition("profile","slidedown")
         }
+        if(cb!=undefined){cb()}
     } else {
         // TODO: Uesr logged out, direct to login page
         current_user = null;
@@ -51,13 +52,17 @@ $(document).on('pagecontainershow', function(e, ui) {
             checkUserLogin(pageId);
             break;
         case "profile":
-            checkUserLogin();
-            if (current_user.auth.profileImageURL===null)
-                current_user.auth.profileImageURL="https://www.watch2gether.com/assets/w2guser-default-4cd04e39cfd59017ebad065028b8af9dfca8499a45a7b19ec20b1c478a751a77.png"
+            checkUserLogin("profile",function(){
+                if (current_user.auth.profileImageURL===null)
+                    current_user.auth.profileImageURL="https://www.watch2gether.com/assets/w2guser-default-4cd04e39cfd59017ebad065028b8af9dfca8499a45a7b19ec20b1c478a751a77.png"
+                else{
+                    $('#profileImage').attr("src",current_user.auth.profileImageURL)
+                    console.log(current_user.auth.profileImageURL)
+                    $(".profileName h3").html(current_user.auth.name)
+                }
 
-            $('#profileImage').attr("src",current_user.auth.profileImageURL)
-            console.log(current_user.auth.profileImageURL)
-            $(".profileName h3").html(current_user.auth.name)
+            });
+
 
             break;
         case "mdb":

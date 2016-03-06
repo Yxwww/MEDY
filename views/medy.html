@@ -8,7 +8,6 @@
         <!--<link rel="stylesheet" href="jQueryMobile/jquery.mobile.theme-1.4.5.min.css" />
         <link rel="stylesheet" href="jQueryMobile/jquery.mobile.icons-1.4.5.min.css" />
         <link rel="stylesheet" href="jQueryMobile/jquery.mobile.structure-1.4.5.min.css" />-->
-
         <link rel="stylesheet" href="jQueryMobile/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" href="themes/Calgary.min.css" />
         <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
@@ -59,7 +58,7 @@
                     <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
                     <div class="ui-block-b"><button id="login_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Sign In</button></div>
                 </div>
-                <button style="color:#3b5998" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
+                <button style="" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
 
             </div>
     </div>
@@ -77,7 +76,7 @@
             <input type="password" name="pass" id="pw_signup" value="" placeholder="password" data-theme="a">
                 <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
             <button id="signUp_confirm_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Confirm</button>
-            <button style="color:#3b5998" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
+            <button style="" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
         </div>
     </div>
 </div>
@@ -97,7 +96,7 @@
         <div data-role="navbar">
             <ul>
                 <li><a href="#discover" data-icon="grid">Discover</a></li>
-                <li><a id="refreshNearby" href="#" data-icon="search" class="ui-btn-active">Search</a></li>
+                <li><a id="refreshNearby" href="#" data-icon="search" class="ui-btn-active ui-state-persist">Search</a></li>
                 <li><a href="#profile" data-icon="user">Profile</a></li>
             </ul>
         </div><!-- /navbar -->
@@ -114,7 +113,15 @@
             <img id="profileImage" class="image-border" style="width: 100px; height: 100px" src="">
             <div class="profileName"> <h3></h3></div>
         </div>
-
+        <h4>History</h4>
+        <ul data-role="listview">
+            <li><a href="#">Acura</a></li>
+            <li><a href="#">Audi</a></li>
+            <li><a href="#">BMW</a></li>
+            <li><a href="#">Cadillac</a></li>
+            <li><a href="#">Ferrari</a></li>
+        </ul>
+        <button id="logout">Log out</button>
         <!--<div class="ui-corner-all custom-corners">
             <div class="ui-bar ui-bar-a">
                 <h2>History</h2>
@@ -130,7 +137,7 @@
                 </ul>
             </div>
         </div>-->
-        <button id="logout">Log out</button>
+
     </div>
 
     <div data-role="footer" class="ui-corner-all ui-shadow">
@@ -138,7 +145,7 @@
             <ul>
                 <li><a href="#discover" data-icon="grid">Discover</a></li>
                 <li><a href="#nearby" data-icon="search">Search</a></li>
-                <li><a href="#profile" data-icon="user" class="ui-btn-active">Profile</a></li>
+                <li><a href="#profile" data-icon="user" class="ui-btn-active ui-state-persist">Profile</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /footer -->
@@ -185,7 +192,7 @@
     <div data-role="footer" class="ui-corner-all ui-shadow">
         <div data-role="navbar">
             <ul>
-                <li><a href="#discover" data-icon="grid" class="ui-btn-active">Discover</a></li>
+                <li><a href="#discover" data-icon="grid" class="ui-btn-active ui-state-persist">Discover</a></li>
                 <li><a href="#nearby" data-icon="search">Search</a></li>
                 <li><a href="#profile" data-icon="user">Profile</a></li>
             </ul>
