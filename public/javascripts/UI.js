@@ -82,10 +82,30 @@ $(document).on('pagecontainershow', function(e, ui) {
                 console.log(comments);
             })
             //console.log(current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985",current_user.auth.uid);
-            getFavourites(current_user.auth.uid, 10, function(favourites){
-                console.log(favourites);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            /*
+            getFavourites(current_user.auth.uid, 100, function(favourites){
+                console.log(favourites)
+                console.log(favourites.indexOf("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964"))
+                if(favourites.indexOf("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964")!=-1){
+                    removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+                    console.log("Feature 1964 removed.")
+                    // if adding, just do nothing as favourite already exists
+                }
+                else{
+                    addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+                    console.log("Feature 1964 added.")
+                }
+                //removeFavourite(current_user.auth.uid, favourites[0].
             });
+            */
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
