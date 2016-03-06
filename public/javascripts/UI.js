@@ -272,7 +272,10 @@ $(document).ready(function() {
 
                 //alert("//maps.google.com/maps?saddr=&" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
 
-                window.open("maps://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=");
+                //uses maps: at the start
+                //window.open("maps://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=");
+                window.open("http://maps.apple.com/?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr=" + lat + "," + lng + "&dirflg=r")
+
             }
             else
                 window.open("http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
