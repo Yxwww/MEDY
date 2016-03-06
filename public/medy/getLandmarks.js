@@ -104,22 +104,27 @@ function removeFavourite2(featureURL, UID, cb){
     var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
     var featureRef = ref.child("favourites");
     featureRef.once("value", function(snapshot){
+        console.log(snapshot.val())
         if(snapshot.val() == null){
+            alert("add")
             cb(featureURL, UID);
         }
         else{
             snapshot.forEach(function(ss) {
                 //console.log(ss.)
-                //console.log(ss.key())
-                if(ss.val()===featureURL){
+                console.log("val " + ss.val())
+                if(ss.val() == featureURL){
+                    console.log("MATCH")
                     var removeRef = featureRef.child(ss.key());
                     //removeRef.remove(cb(featureURL, UID));
                     //alert("whatever2")
                     removeRef.remove(function(){
+                        alert("add2")
                         cb(featureURL, UID);
                     })
                 }
             });
+            cb(featureURL, UID);
         }
     });
 }
@@ -173,7 +178,8 @@ function removeHistory(featureURL, UID, cb){
     var featureRef = ref.child("history");
     featureRef.once("value", function(snapshot){
         snapshot.forEach(function(ss) {
-            //console.log(ss.key())
+            console.log("length: " + ss.val().length);
+            console.log(ss.val())
             if(ss.val()===featureURL){
                 var removeRef = featureRef.child(ss.key());
                 removeRef.remove(cb(featureURL, UID));
