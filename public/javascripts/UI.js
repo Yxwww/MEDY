@@ -97,7 +97,7 @@ $(document).on('pagecontainershow', function(e, ui) {
                         $('#history_list').empty()
                         var btnCount = 0
                         var maxBtn = Math.min(3,history.length);
-                        [0,1,2].forEach(function(item,index,array){
+                        [0,1,2,3,4].forEach(function(item,index,array){
                             if(history[index]!=undefined){
                                 getFeatureByURL(history[index],function(feature){
                                     var name = ""
