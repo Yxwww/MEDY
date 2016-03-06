@@ -48,12 +48,21 @@ function getComments(featureURL, numComments, cb){
 }
 
 function addFavourite(featureURL, UID){
-    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
-    var favouriteRef = ref.child("favourites");
-    var package = {};
-    var currentMilliseconds = new Date().getTime();
-    package[currentMilliseconds] = featureURL;
-    favouriteRef.update(package);
+    getFavourites(current_user.auth.uid, 100, function(favourites){
+        if(favourites.indexOf(featureURL) != -1){
+            console.log("Already exists at" + favourites.indexOf(featureURL) + ": " + featureURL)
+        }
+        else{
+            var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+            var favouriteRef = ref.child("favourites");
+
+            var package = {};
+            var currentMilliseconds = new Date().getTime();
+            package[currentMilliseconds] = featureURL;
+            favouriteRef.update(package);
+            console.log("Added: " + featureURL)
+        }
+    });
 }
 
 function getFavourites(UID, numFavourites, cb){
@@ -68,16 +77,18 @@ function getFavourites(UID, numFavourites, cb){
     });
 }
 
-function removeFavourite(UID, timestampOfFavouriteAsKey){
+function removeFavourite(featureURL, UID){
+    console.log("Removing " + featureURL)
     var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
-    var featureRef = ref.child("favourites/"+timestampOfFavouriteAsKey);
-    featureRef.remove()
-    featureRef.limitToLast(numFavourites).once("value", function(snapshot){
-        var results = [];
+    var featureRef = ref.child("favourites");
+    featureRef.once("value", function(snapshot){
         snapshot.forEach(function(ss) {
-            results.push(ss.val());
+            //console.log(ss.key())
+            if(ss.val()===featureURL){
+                var removeRef = featureRef.child(ss.key());
+                removeRef.remove();
+            }
         });
-        cb(results.reverse());
     });
 }
 
@@ -355,4 +366,13 @@ function toRad(Value) {
 function toDeg(Value) {
     /** Converts radians to numeric degrees */
     return Value / Math.PI * 180;
+}
+
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] == obj) {
+            return true;
+        }
+    }
+    return false;
 }
