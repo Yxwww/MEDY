@@ -217,15 +217,13 @@ $(document).ready(function() {
             updateLandmarkWithFeature(feature)
             setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
 
-
-            
         })
 
         //TODO: use landmark being selected rather than the oval
-        var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
+        //var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
 
         //update distance
-        $("#feature_distance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
+        //$("#feature_distance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
 
         //TODO: RUN THIS WHEN POPUP POPS UP
         //var calg = new google.maps.LatLng(51.0453 ,-114.0581)
@@ -233,16 +231,16 @@ $(document).ready(function() {
 
         //alert("promise result = " + getTravelTime(calg,ed))
 
-        getTravelTime(initialLocation,olyOval).then(function(response){
-            //alert("my response = " + response)
-
-            //DO WORK
-            $("#feature_ETA").text("ETA: " + response)
-
-
-        }, function(error){
-            alert("failed")
-        })
+        //getTravelTime(initialLocation,olyOval).then(function(response){
+        //    //alert("my response = " + response)
+        //
+        //    //DO WORK
+        //    $("#feature_ETA").text("ETA: " + response)
+        //
+        //
+        //}, function(error){
+        //    alert("failed")
+        //})
 
 
         //TODO: set landmark's name
@@ -277,6 +275,23 @@ function updateLandmarkWithFeature(feature){
     }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
         $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
     }
+
+    var featureLocation = new google.maps.LatLng(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"])
+
+    //set distance
+    $("#feature_distance").text("Distance: " + getDistance(initialLocation, featureLocation) + " km")
+
+    //set ETA
+    getTravelTime(initialLocation,featureLocation).then(function(response){
+
+        //DO WORK
+        $("#feature_ETA").text("ETA: " + response)
+
+    }, function(error){
+        alert("failed")
+    })
+
+
     getComments(feature.URL,3,function(comments){
         //console.log(comments);
         var commentsHTML = ""

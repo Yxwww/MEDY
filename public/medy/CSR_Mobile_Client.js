@@ -209,6 +209,14 @@ function initMap() {
         })
         featureRefURL = event.feature.R.URL
         setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
+
+
+
+
+
+
+
+
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
         //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
