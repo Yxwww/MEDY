@@ -35,6 +35,7 @@ $(document).on("pageinit",function(){
 
 
 function checkUserLogin(pageId,cb){
+    current_pageID = pageId
     var ref = new Firebase("https://teammedy.firebaseio.com");
     var authData = ref.getAuth();
     if (authData) {
@@ -189,6 +190,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             //addFullURL();
             break;
         case "nearby":
+
             checkUserLogin(pageId);
             // Get nearest 10 locations and draw on map
             $.mobile.loading( "show", {
@@ -212,6 +214,7 @@ $(document).on('pagecontainershow', function(e, ui) {
                     })
                 });
             })
+            current_pageID = pageId
             break;
         case "discover":
             checkUserLogin(pageId);
@@ -221,6 +224,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             console.log("not handled pageid: "+pageId );
     }
 });
+var current_pageID;
 var refreshFavList = function(){
     var el = document.getElementById("favourites-listview");
     if (el) {
@@ -228,6 +232,7 @@ var refreshFavList = function(){
             el.removeChild(el.childNodes[0]);
         }
     }
+
     getFavourites(current_user.auth.uid, 10, function(favourites){
         favourites.forEach(function(favourite,index,array) {
             getFeatureByURL(favourite, function(feature){
@@ -306,7 +311,10 @@ $(document).ready(function() {
         popUpWithURL(e.target.getAttribute("data-btn-url"))
     })
     $( "#positionWindow" ).bind({
-        popupafterclose: function(event, ui) { refreshFavList() }
+        popupafterclose: function(event, ui) {
+            if(current_pageID=="discover")
+                refreshFavList()
+        }
     });
     $("#favourites-listview").on("tap",".history_cell",function(e){
         console.log("111", e.target.getAttribute("data-btn-url"));
