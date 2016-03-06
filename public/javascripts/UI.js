@@ -61,7 +61,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "mdb":
             checkUserLogin(pageId);
-
+            /*
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard01");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard02");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard03");
@@ -77,19 +77,27 @@ $(document).on('pagecontainershow', function(e, ui) {
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard13");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard14");
             addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981", current_user.auth.name, "life is hard15");
-
+            */
             getComments("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", 10, function(comments){
                 console.log(comments);
             })
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1975",current_user.auth.uid);
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1976",current_user.auth.uid);
+            //addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1977",current_user.auth.uid);
+            addHistory("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1976",current_user.auth.uid);
             //console.log(current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
-            addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
+            //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //addFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1971",current_user.auth.uid);
             //removeFavourite("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1964",current_user.auth.uid);
+            getHistory(current_user.auth.uid, 100, function(history){
+                console.log(history)
+            })
+
             /*
             getFavourites(current_user.auth.uid, 100, function(favourites){
                 console.log(favourites)
@@ -114,6 +122,8 @@ $(document).on('pagecontainershow', function(e, ui) {
             getFeatureByURL("https://teammedy.firebaseio.com/Assets/AllServices/0/features/100", function(feature){
                 console.log(feature);
             })
+
+            //addFullURL();
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
