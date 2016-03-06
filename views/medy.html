@@ -87,7 +87,7 @@
         <div id="map" class="ui_map"></div> <!-- Where the data is loaded -->
         <script>
             all(true, function(result){
-                console.log("all results: " + result.length)
+                //console.log("all results: " + result.length)
                 filterByCategory(result, true, true, true, true, function(result){
                     console.log("final " + result.length + "\n" +  result);
                     filterByNearest(result, 10, function(result){
@@ -98,7 +98,7 @@
             })
         </script>
 
-        <div id="satelliteMap" hidden="true" class="ui_map"></div>
+        <div id="satelliteMap" class="ui_map"></div>
 
         <form>
             <fieldset data-role="controlgroup" data-type="horizontal">

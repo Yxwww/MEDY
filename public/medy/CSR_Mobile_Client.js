@@ -126,20 +126,31 @@ function initMap() {
 
     //create our secondary satellite map
     satelliteMap = new google.maps.Map(document.getElementById('satelliteMap'), {
-        zoom: 15,
+        zoom: 16,
         center: {lat: 51.0486151, lng: -114.0708459},
-        disableDefaultUI:true,
-        mapTypeId: google.maps.MapTypeId.SATELLITE,
-        //zoomControl: false,
+        disableDefaultUI:false,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,     //NOTE: HYBRID shows roads, might be worthwhile
+
+        //if we're having this map be (at least somewhat) interactable
+        zoomControl: true,
+        //zoomControlOptions: {
+        //    style: google.maps.ZoomControlStyle.LARGE     //doesn't have anything to do with size of control
+        //},
+
+        streetViewControl: true,
+        scrollwheel: false,                   //disable if we only want the user to zoom using the zoom controls
+        disableDoubleClickZoom: true,         //disable if we only want the user to zoom using the zoom controls
+
+        mapTypeControl:false,
+        panControl: true,                      //disable if we decide to keep tilt controls
         scaleControl: false,
         draggable: false,
-        //scrollwheel: false,
-        //disableDoubleClickZoom: true,
         minZoom: 14,
-        maxZoom: 15
+        maxZoom: 18
         //set max zoom, min zoom?
     });
 
+    satelliteMap.setTilt(45)                //to set the tilt or not? that is the question
 
     //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
@@ -159,6 +170,10 @@ function initMap() {
             map.setCenter(initialLocation);
 
             //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+            var myLocationIcon = {
+
+            };
+
 
             //place a marker at user's location
             var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -183,9 +198,15 @@ function initMap() {
 
     // Set event listener for each feature.
     map.data.addListener('click', function(event) {
-        console.log(event);
-        console.log(event.latLng.lat());
-        alert("clicked on marker!")
+        //console.log(event);
+        //console.log(event.latLng.lat(),event.latLng.lng());
+        //alert("clicked on marker!")
+
+        //TODO: load up card rather than just showing satelliteMap
+
+        //$("#satelliteMap").toggle()
+
+        setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
         //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
@@ -201,8 +222,11 @@ function drawJSONList(list){
 }
 
 
-
-
+//moves satelliteMap's view to a lat,long
+function setSatelliteMapCenter(lat,lng){
+    satelliteMap.setZoom(16)
+    satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
+}
 
 
 //TODO: REALLY need to get this working so that the map ALWAYS loads before we try to access it

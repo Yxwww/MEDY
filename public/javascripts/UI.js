@@ -12,7 +12,9 @@ $( document ).bind( 'pageinit', function(){
 // page handler
 $(document).on("pageinit",function(){
 
+
 })
+
 
 
 function checkUserLogin(pageId){
