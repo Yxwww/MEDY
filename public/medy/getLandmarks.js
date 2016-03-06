@@ -18,7 +18,7 @@ var options = {
 
 function error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
-    alert("Could not load your location.");
+    //alert("Could not load your location.");
 };
 
 function addComment(featureURL, name, comment){
