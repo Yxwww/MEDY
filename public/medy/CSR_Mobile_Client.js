@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var map,resultMap,
+var map,satelliteMap,
     directionsDisplay,
     directionsService;
 
@@ -120,17 +120,50 @@ var myTestGeoJSONList  = [
 
 
 
-
-
 /* Initialize the map*/
 //TODO: a callback to "initialize()" occurs when google maps api loads
 function initMap() {
-    //create our map
+
+    //create our secondary satellite map
+    satelliteMap = new google.maps.Map(document.getElementById('satelliteMap'), {
+        zoom: 16,
+        center: {lat: 51.0486151, lng: -114.0708459},
+        disableDefaultUI:false,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,     //NOTE: HYBRID shows roads, might be worthwhile
+
+        //if we're having this map be (at least somewhat) interactable
+        zoomControl: true,
+        //zoomControlOptions: {
+        //    style: google.maps.ZoomControlStyle.LARGE     //doesn't have anything to do with size of control
+        //},
+
+        streetViewControl: true,
+        scrollwheel: false,                   //disable if we only want the user to zoom using the zoom controls
+        disableDoubleClickZoom: true,         //disable if we only want the user to zoom using the zoom controls
+
+        mapTypeControl:false,
+        panControl: true,                      //disable if we decide to keep tilt controls
+        scaleControl: false,
+        draggable: false,
+        minZoom: 14,
+        maxZoom: 18
+        //set max zoom, min zoom?
+    });
+
+    satelliteMap.setTilt(45)                //to set the tilt or not? that is the question
+
+    //create our base map
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: {lat: 51.0486151, lng: -114.0708459},
         disableDefaultUI:true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scaleControl:true,
+
+        //not supported as of current API (3.22)
+        scaleControlOptions:{
+            position: google.maps.ControlPosition.TOP_CENTER
+        }
     });
 
     //set map center to user location
@@ -142,37 +175,59 @@ function initMap() {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
 
+            var icon = {
+                url: "../medy/themes/images/icons-png/user-big.png",
+                scaledSize: new google.maps.Size(25, 25), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+
             //place a marker at user's location
             var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             var currentResultPositionMarker = new google.maps.Marker({
                 position: userLatLng,
                 map: map,
-                title: "Current position"
-                //for custom icons:
-                //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
+                title: "Current position",
+                icon: icon
             });
-            //drawJSONList(myTestGeoJSONList);
+
+            map.setZoom(15)
+
         });
     }
+
+    // Set event listener for each feature.
+    map.data.addListener('click', function(event) {
+        //console.log(event);
+        //console.log(event.latLng.lat(),event.latLng.lng());
+        //alert("clicked on marker!")
+
+        //TODO: load up card rather than just showing satelliteMap
+
+        //$("#satelliteMap").toggle()
+
+        setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
+        //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
+        //infowindow.setPosition(event.latLng);
+        //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+        //infowindow.open(map);
+    });
+
 }
 
 //draw a list of GeoJSON objects
 function drawJSONList(list){
     list.forEach(function (obj) {
-        //alert(obj)
         map.data.addGeoJson(obj);
     })
 }
 
 
-
-
-
-
-
-//initialize map immediately after page loads
-google.maps.event.addDomListener(window, "load", initMap);
-
+//moves satelliteMap's view to a lat,long
+function setSatelliteMapCenter(lat,lng){
+    satelliteMap.setZoom(16)
+    satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
+}
 
 
 

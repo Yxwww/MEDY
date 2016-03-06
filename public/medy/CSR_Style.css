@@ -36,6 +36,11 @@ input{font-weight:bold !important;}
     background-image: url("../jQueryMobile/images/icons-png/facebook_square.png");
 }*/
 
+
+#satelliteMap {
+    background-color: #1dc116;
+}
+
 .ui-btntext-small{
     font-size: 11px;
 }
@@ -45,3 +50,4 @@ input{font-weight:bold !important;}
     background-color:#3388CC;
     padding:6px;
 }
+

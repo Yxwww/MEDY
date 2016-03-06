@@ -11,8 +11,11 @@ $( document ).bind( 'pageinit', function(){
 });
 // page handler
 $(document).on("pageinit",function(){
+    google.maps.event.addDomListener(window, "load", initMap);
+
 
 })
+
 
 
 function checkUserLogin(pageId){
@@ -106,6 +109,7 @@ $(document).ready(function() {
         ref.unauth();
         ref.onAuth(authDataCallback);
     })
+
     $("#leave_comment").tap(function(){
         //$('#description_block').html('').trigger("create");
         console.log($("#description_block").is(":visible"));
@@ -117,6 +121,15 @@ $(document).ready(function() {
         $("#description_block").slideToggle()
         $("#comment_block").slideToggle()
     })
+
+    $("#refreshNearby").tap(function(){
+
+        google.maps.event.trigger(satelliteMap, 'resize');
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(initialLocation)
+        map.setZoom(15)
+    })
+
     function authDataCallback(authData) {
         if (authData) {
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
