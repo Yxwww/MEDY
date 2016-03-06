@@ -174,7 +174,6 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function (position) {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
-
             var icon = {
                 url: "../medy/themes/images/icons-png/user-big.png",
                 scaledSize: new google.maps.Size(25, 25), // scaled size
@@ -220,7 +219,9 @@ function initMap() {
 //draw a list of GeoJSON objects
 function drawJSONList(list){
     list.forEach(function (obj) {
+        console.log(obj);
         obj.properties["URL"] = obj.URL
+
         map.data.addGeoJson(obj);
     })
 }

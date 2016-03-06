@@ -47,7 +47,7 @@ input{font-weight:bold !important;}
 
 .image-border{
     margin:10px;
-    background-color:#3388CC;
+    background-color: rgba(204, 201, 200, 0.41);
     padding:6px;
 }
 

@@ -29,6 +29,10 @@ function checkUserLogin(pageId){
         console.log(authData);
         current_user = new User(getEmail(authData),authData.uid,authData.token,
             authData.auth.provider,getAuthName(authData),getProfileImageURL(authData));
+        if(pageId=="login" ||pageId=="sign_up" ){
+            console.log("user already logged in Log in");
+            navToPageWithTransition("profile","slidedown")
+        }
     } else {
         // TODO: Uesr logged out, direct to login page
         current_user = null;
@@ -45,9 +49,6 @@ $(document).on('pagecontainershow', function(e, ui) {
     switch(pageId){
         case "login":
             checkUserLogin(pageId);
-            if (current_user) {
-                $.mobile.navigate("#profile");
-            }
             break;
         case "profile":
             checkUserLogin();
