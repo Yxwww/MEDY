@@ -35,3 +35,13 @@ input{font-weight:bold !important;}
 /*.ui-nosvg .ui-icon-myicon:after {
     background-image: url("../jQueryMobile/images/icons-png/facebook_square.png");
 }*/
+
+.ui-btntext-small{
+    font-size: 11px;
+}
+
+.image-border{
+    margin:10px;
+    background-color:#3388CC;
+    padding:6px;
+}
