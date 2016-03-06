@@ -170,8 +170,11 @@ function initMap() {
             map.setCenter(initialLocation);
 
             //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            var myLocationIcon = {
-
+            var icon = {
+                url: "../medy/themes/images/icons-png/beachflag.png", // url /Users/dan/Developer/MEDY/public/medy/themes/images/icons-png/beachflag.png
+                scaledSize: new google.maps.Size(50, 50), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
             };
 
 
@@ -182,9 +185,13 @@ function initMap() {
                 map: map,
                 title: "Current position",
                 //for custom icons: (temp flag icon for now)
-                //icon: image
+                //icon: {
+                //    path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+                //    scale: 5
+                //}
                 //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
                 //icon: "images/icons-png/beachflag.png"
+                icon: icon
             });
 
             map.setZoom(15)
