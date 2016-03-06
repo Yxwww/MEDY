@@ -223,40 +223,11 @@ $(document).ready(function() {
         var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
         featureRefURL = tempURL
         getFeatureByURL(tempURL,function(feature){
+            alert(feature)
             console.log(feature);
             updateLandmarkWithFeature(feature)
             setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
-
         })
-
-        //TODO: use landmark being selected rather than the oval
-        //var olyOval = new google.maps.LatLng(51.0770331,-114.1380119)
-
-        //update distance
-        //$("#feature_distance").text("Distance: " + getDistance(initialLocation, olyOval) + " km")
-
-        //TODO: RUN THIS WHEN POPUP POPS UP
-        //var calg = new google.maps.LatLng(51.0453 ,-114.0581)
-        //var ed = new google.maps.LatLng(53.5333,-113.5000)
-
-        //alert("promise result = " + getTravelTime(calg,ed))
-
-        //getTravelTime(initialLocation,olyOval).then(function(response){
-        //    //alert("my response = " + response)
-        //
-        //    //DO WORK
-        //    $("#feature_ETA").text("ETA: " + response)
-        //
-        //
-        //}, function(error){
-        //    alert("failed")
-        //})
-
-
-        //TODO: set landmark's name
-
-
-
     })
 
 
@@ -264,6 +235,36 @@ $(document).ready(function() {
         google.maps.event.trigger(satelliteMap, 'resize');
         map.setCenter(initialLocation)
     })
+
+
+    $("#directionsBtn").tap(function(){
+
+        getFeatureByURL(featureRefURL,function(feature){
+
+            var lat = feature.geometry.coordinates["1"]
+            var lng = feature.geometry.coordinates["0"]
+
+            // iDevice link
+            if( (navigator.platform.indexOf("iPhone") != -1)
+                || (navigator.platform.indexOf("iPod") != -1)
+                || (navigator.platform.indexOf("iPad") != -1)){
+
+
+                //alert("//maps.google.com/maps?saddr=&" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
+
+                window.open("maps://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=");
+            }
+            else
+                window.open("http://maps.google.com/maps?saddr=" + initialLocation.lat() + "," + initialLocation.lng() + "&daddr="+ lat + "," + lng + "&amp;ll=")
+
+        })
+
+
+
+
+    })
+
+
 
     function authDataCallback(authData) {
         if (authData) {
@@ -285,6 +286,7 @@ function updateLandmarkWithFeature(feature){
     }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
         $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
     }
+
 
     var featureLocation = new google.maps.LatLng(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"])
 
