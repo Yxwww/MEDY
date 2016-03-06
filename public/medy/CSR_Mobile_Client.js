@@ -199,13 +199,11 @@ function initMap() {
     // Set event listener for each feature.
     map.data.addListener('click', function(event) {
         //console.log(event);
-        //console.log(event.latLng.lat(),event.latLng.lng());
+        console.log(event.latLng.lat(),event.latLng.lng());
         //alert("clicked on marker!")
 
-        //TODO: load up card rather than just showing satelliteMap
-
-        //$("#satelliteMap").toggle()
-
+        
+        $("#positionWindow").popup("open");
         setSatelliteMapCenter(event.latLng.lat(), event.latLng.lng())
         //infowindow.setContent(event.feature.getProperty('name')+"<br>"+event.feature.getProperty('description'));
         //infowindow.setPosition(event.latLng);
@@ -227,7 +225,7 @@ function drawJSONList(list){
 function setSatelliteMapCenter(lat,lng){
     google.maps.event.trigger(satelliteMap, 'resize');
     satelliteMap.setZoom(16)
-    satelliteMap.setCenter(new google.maps.LatLng(51.0770333100886, -114.13568838838398))
+    satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
 }
 
 

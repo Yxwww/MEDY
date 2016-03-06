@@ -131,6 +131,9 @@ $(document).on('pagecontainershow', function(e, ui) {
                 });
             })
             break;
+        case "discover":
+
+            break;
         default :
             console.log("not handled pageid: "+pageId );
     }
@@ -182,9 +185,9 @@ $(document).ready(function() {
         $("#comment_block").slideToggle(resizeSatMap)
     })
     $(".landmarkPopUpBtn").tap(function(){
-        console.log(" ");
-        setSatelliteMapCenter(51.0770331,-114.1380119)
+        var ref = new Firebase();
 
+        setSatelliteMapCenter(51.0770331,-114.1380119)
     })
 
     $("#refreshNearby").tap(function(){
