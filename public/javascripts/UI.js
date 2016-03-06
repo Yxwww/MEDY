@@ -138,7 +138,7 @@ $(document).on('pagecontainershow', function(e, ui) {
             })
             break;
         case "discover":
-
+                checkUserLogin(pageId);
             break;
         default :
             console.log("not handled pageid: "+pageId );
@@ -176,6 +176,20 @@ $(document).ready(function() {
         ref.onAuth(authDataCallback);
     })
 
+    $("#comment_submit").tap(function(){
+        addComment(featureRefURL,current_user.auth.name,$('#comment').val())
+        $("#description_block").slideToggle(resizeSatMap)
+        $("#comment_block").slideToggle(resizeSatMap)
+        getComments(feature.URL,3,function(comments){
+            //console.log(comments);
+            var commentsHTML = ""
+            comments.forEach(function(itr){
+                console.log(itr);
+                commentsHTML+='<b style="margin-left:2em;">'+itr.name.split(" ")[0]+'</b>: '+itr.comment+"</br>";
+            })
+            $('#feature_comment').html("Comments:<br/>"+commentsHTML);
+        })
+    })
     $("#leave_comment").tap(function(){
         //$('#description_block').html('').trigger("create");
         /*console.log($("#description_block").is(":visible"));
@@ -191,10 +205,17 @@ $(document).ready(function() {
         $("#comment_block").slideToggle(resizeSatMap)
     })
     $(".landmarkPopUpBtn").tap(function(){
-        var ref = new Firebase();
+        //var ref = new Firebase("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1980");
+        var tempURL = "https://teammedy.firebaseio.com/Assets/AllServices/3/features/1981";
+        featureRefURL = tempURL
+        getFeatureByURL(tempURL,function(feature){
+            console.log(feature);
+            updateLandmarkWithFeature(feature)
+            setSatelliteMapCenter(feature.geometry.coordinates["1"],feature.geometry.coordinates["0"]);
+        })
 
-        setSatelliteMapCenter(51.0770331,-114.1380119)
     })
+
 
     $("#refreshNearby").tap(function(){
         google.maps.event.trigger(satelliteMap, 'resize');
@@ -211,6 +232,25 @@ $(document).ready(function() {
         }
     }
 });
+function updateLandmarkWithFeature(feature){
+    if(feature.properties.hasOwnProperty("NAME")){
+        $("#feature_name").html(feature.properties["NAME"]);
+    }else if(feature.properties.hasOwnProperty("ASSET_TYPE")){
+        $("#feature_name").html(feature.properties["ASSET_TYPE"]);
+    }else if(feature.properties.hasOwnProperty("PARCEL_LOCATION")){
+        $("#feature_name").html(feature.properties["PARCEL_LOCATION"]);
+    }
+    getComments(feature.URL,3,function(comments){
+        //console.log(comments);
+        var commentsHTML = ""
+        comments.forEach(function(itr){
+            console.log(itr);
+            commentsHTML+='<b style="margin-left:2em;">'+itr.name.split(" ")[0]+'</b>: '+itr.comment+"</br>";
+        })
+        $('#feature_comment').html("Comments:<br/>"+commentsHTML);
+    })
+}
+
 function navToPageWithTransition(pageID,transition){
     $( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+pageID, { role: "page",transition:transition } );
 }

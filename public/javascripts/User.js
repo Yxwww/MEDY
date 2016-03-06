@@ -4,6 +4,7 @@
 var current_user;
 var medyRootRefURL= "https://teammedy.firebaseio.com/"
 var user_ref;
+var featureRefURL;
 function User(email,uid,token,provider,name,profileImageURL) {
     this.auth = {};
     this.auth["email"]= email
