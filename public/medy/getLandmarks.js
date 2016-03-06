@@ -119,7 +119,7 @@ function removeFavourite2(featureURL, UID, cb){
                     //removeRef.remove(cb(featureURL, UID));
                     //alert("whatever2")
                     removeRef.remove(function(){
-                        alert("add2")
+                        //alert("add2")
                         cb(featureURL, UID);
                     })
                 }
