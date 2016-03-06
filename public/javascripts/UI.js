@@ -51,11 +51,18 @@ $(document).on('pagecontainershow', function(e, ui) {
             break;
         case "profile":
             checkUserLogin();
+
+            if (current_user.auth.profileImageURL===null)
+                current_user.auth.profileImageURL="https://www.watch2gether.com/assets/w2guser-default-4cd04e39cfd59017ebad065028b8af9dfca8499a45a7b19ec20b1c478a751a77.png"
+
+
             $('#profileImage').attr("src",current_user.auth.profileImageURL)
             console.log(current_user.auth.profileImageURL)
+            $(".profileName h3").html(current_user.auth.name)
+
             break;
         case "mdb":
-            addFullURL();
+            addComment("https://teammedy.firebaseio.com/Assets/AllServices/3/features/1985", "3aa66d34-f212-4d31-8743-3b528f783993", "life is hard");
             break;
         case "nearby":
             // Get nearest 10 locations and draw on map
@@ -107,8 +114,8 @@ $(document).ready(function() {
 
         google.maps.event.trigger(satelliteMap, 'resize');
         google.maps.event.trigger(map, 'resize');
-        map.setCenter(origLocation)
-        map.setZoom(16)
+        map.setCenter(initialLocation)
+        map.setZoom(15)
     })
 
     function authDataCallback(authData) {

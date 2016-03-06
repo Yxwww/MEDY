@@ -38,7 +38,7 @@ function login(email,password){
         password : password
     }, function(error, authData) {
         if(error!=null){
-            alert("login error: "+ error)
+            alert(error)
         }else{
             // Logged In
             var loginUser = new User(getEmail(authData),authData.uid,authData.token,

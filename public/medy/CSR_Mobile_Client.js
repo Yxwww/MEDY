@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var map,satelliteMap, origLocation,
+var map,satelliteMap,
     directionsDisplay,
     directionsService;
 
@@ -157,7 +157,13 @@ function initMap() {
         zoom: 13,
         center: {lat: 51.0486151, lng: -114.0708459},
         disableDefaultUI:true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        scaleControl:true,
+
+        //not supported as of current API (3.22)
+        scaleControlOptions:{
+            position: google.maps.ControlPosition.TOP_CENTER
+        }
     });
 
     //set map center to user location
@@ -169,9 +175,6 @@ function initMap() {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
 
-            origLocation = initialLocation;         //TODO: use initiallocaiton ?
-
-            //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
             var icon = {
                 url: "../medy/themes/images/icons-png/user-big.png",
                 scaledSize: new google.maps.Size(25, 25), // scaled size

@@ -72,7 +72,7 @@
             <label for="un_signup" class="ui-hidden-accessible">Password:</label>
             <input type="password" name="pass" id="pw_signup" value="" placeholder="password" data-theme="a">
                 <!--<div class="ui-block-a"><button type="submit" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon">Facebook Sign In</button></div>-->
-            <button id="signUp_confirm_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Comfirm</button>
+            <button id="signUp_confirm_btn" class="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check">Confirm</button>
             <button style="color:#3b5998" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-myicon FBLogin"  href="#">Facebook Login</button>
         </div>
     </div>
@@ -88,17 +88,18 @@
         <!--<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10012.799821127637!2d-114.14964555!3d51.141663699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sca!4v1457149979793" width=100% height="450" frameborder="0" style="border:0" allowfullscreen></iframe>-->
         <div id="map" class="ui_map"></div> <!-- Where the data is loaded -->
 
-
         <div id="satelliteMap" class="ui_map"></div>
 
-        <form>
-            <fieldset data-role="controlgroup" data-type="horizontal">
-                <a  data-role="button" data-transition="slide" data-icon="discover" data-iconpos="left" href="#discover">Discover</a>
-                <a  id="refreshNearby" data-role="button" data-transition="slide" data-icon="search" data-iconpos="notext" href="#nearby">Search</a>
-                <a  data-role="button" data-transition="slide" data-icon="user" data-iconpos="left" href="#profile">Profile</a>
-            </fieldset>
-        </form>
     </div>
+    <div data-role="footer" class="ui-corner-all ui-shadow">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#discover" data-icon="grid">Discover</a></li>
+                <li><a id="refreshNearby" href="" data-icon="search">Search</a></li>
+                <li><a href="#profile" data-icon="user">Profile</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /footer -->
 </div>
 <!-- END of nearby page -->
 
@@ -111,6 +112,8 @@
     <div data-role="content">
         <div style=" text-align:center" data-controltype="image" id="user_photo">
             <img id="profileImage" class="image-border" style="width: 100px; height: 100px" src="">
+
+            <div class="profileName"> <h3></h3></div>
 
         </div>
         <div class="ui-corner-all custom-corners">
