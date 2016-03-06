@@ -93,8 +93,8 @@
 
         <form>
             <fieldset data-role="controlgroup" data-type="horizontal">
-                <a  data-role="button" data-transition="slide" data-icon="home" data-iconpos="left" href="#home_page">Home</a>
-                <a  data-role="button" data-transition="slide" data-icon="search" data-iconpos="notext">Search</a>
+                <a  data-role="button" data-transition="slide" data-icon="discover" data-iconpos="left" href="#discover">Discover</a>
+                <a  id="refreshNearby" data-role="button" data-transition="slide" data-icon="search" data-iconpos="notext" href="#nearby">Search</a>
                 <a  data-role="button" data-transition="slide" data-icon="user" data-iconpos="left" href="#profile">Profile</a>
             </fieldset>
         </form>
@@ -136,8 +136,8 @@
         <div data-role="navbar">
             <ul>
                 <li><a href="#discover" data-icon="grid">Discover</a></li>
-                <li><a href="#" data-icon="search">Search</a></li>
-                <li><a href="#" data-icon="user" class="ui-btn-active">Profile</a></li>
+                <li><a href="#nearby" data-icon="search">Search</a></li>
+                <li><a href="#profile" data-icon="user" class="ui-btn-active">Profile</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /footer -->
@@ -207,8 +207,8 @@
     <div data-role="footer" class="ui-corner-all ui-shadow">
         <div data-role="navbar">
             <ul>
-                <li><a href="#" data-icon="grid" class="ui-btn-active">Discover</a></li>
-                <li><a href="#" data-icon="search">Search</a></li>
+                <li><a href="#discover" data-icon="grid" class="ui-btn-active">Discover</a></li>
+                <li><a href="#nearby" data-icon="search">Search</a></li>
                 <li><a href="#profile" data-icon="user">Profile</a></li>
             </ul>
         </div><!-- /navbar -->

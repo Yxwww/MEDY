@@ -1,7 +1,7 @@
 ﻿/**
  * Created by YX on 7/23/2014.
  */
-var map,satelliteMap,
+var map,satelliteMap, origLocation,
     directionsDisplay,
     directionsService;
 
@@ -169,14 +169,15 @@ function initMap() {
             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             map.setCenter(initialLocation);
 
+            origLocation = initialLocation;         //TODO: use initiallocaiton ?
+
             //var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
             var icon = {
-                url: "../medy/themes/images/icons-png/beachflag.png", // url /Users/dan/Developer/MEDY/public/medy/themes/images/icons-png/beachflag.png
-                scaledSize: new google.maps.Size(50, 50), // scaled size
+                url: "../medy/themes/images/icons-png/user-big.png",
+                scaledSize: new google.maps.Size(25, 25), // scaled size
                 origin: new google.maps.Point(0,0), // origin
                 anchor: new google.maps.Point(0, 0) // anchor
             };
-
 
             //place a marker at user's location
             var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -184,22 +185,11 @@ function initMap() {
                 position: userLatLng,
                 map: map,
                 title: "Current position",
-                //for custom icons: (temp flag icon for now)
-                //icon: {
-                //    path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
-                //    scale: 5
-                //}
-                //icon: "https://image.freepik.com/free-icon/map-marker-with-a-person-shape_318-50581.jpg"
-                //icon: "images/icons-png/beachflag.png"
                 icon: icon
             });
 
             map.setZoom(15)
 
-
-            //currentResultPositionMarker.setIcon("https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png")
-
-            //drawJSONList(myTestGeoJSONList);
         });
     }
 
@@ -219,6 +209,7 @@ function initMap() {
         //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
         //infowindow.open(map);
     });
+
 }
 
 //draw a list of GeoJSON objects
@@ -234,13 +225,6 @@ function setSatelliteMapCenter(lat,lng){
     satelliteMap.setZoom(16)
     satelliteMap.setCenter(new google.maps.LatLng(lat, lng))
 }
-
-
-//TODO: REALLY need to get this working so that the map ALWAYS loads before we try to access it
-//error = "google is not defined"
-//initialize map immediately when page loads
-//google.maps.event.addDomListener(window, "load", initMap);
-
 
 
 

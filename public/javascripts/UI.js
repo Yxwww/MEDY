@@ -102,6 +102,15 @@ $(document).ready(function() {
         ref.unauth();
         ref.onAuth(authDataCallback);
     })
+
+    $("#refreshNearby").tap(function(){
+
+        google.maps.event.trigger(satelliteMap, 'resize');
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(origLocation)
+        map.setZoom(16)
+    })
+
     function authDataCallback(authData) {
         if (authData) {
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
