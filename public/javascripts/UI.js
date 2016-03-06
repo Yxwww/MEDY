@@ -14,6 +14,8 @@ $(document).on("pageinit",function(){
     google.maps.event.addDomListener(window, "load", initMap);
     $("#checkbox-favourite").click(function (event) {
         event.stopPropagation();
+        event.stopImmediatePropagation()
+        //alert(event.target.tagName)
         getFavourites(current_user.auth.uid, 100, function(favourites){
             console.log(favourites.indexOf(featureRefURL))
             if(favourites.indexOf(featureRefURL)!=-1){
@@ -22,7 +24,8 @@ $(document).on("pageinit",function(){
                 // if adding, just do nothing as favourite already exists
             }
             else{
-                addFavourite(featureRefURL, current_user.auth.uid);
+                console.log("reached here")
+                removeFavourite2(featureRefURL, current_user.auth.uid, addFavourite)
                 console.log(featureRefURL + " added to favourites.")
             }
         });
@@ -269,6 +272,9 @@ var refreshFavList = function(){
 // MARK: UI Listener
 
 $(document).ready(function() {
+    $("#positionWindow").bind({
+       popupafteropen: function(event, ui){setFavouriteCheckbox()}
+    });
     $( function() {
         $( "#positionWindow" ).enhanceWithin().popup();
     });
@@ -460,4 +466,15 @@ function openLandmarkDetailView(){
     $( "#popup-outside-page").popup("open");
 }
 
-
+function setFavouriteCheckbox(){
+    getFavourites(current_user.auth.uid, 100, function(favourites){
+        if(favourites.indexOf(featureRefURL)!=-1){
+            console.log("feature is favourited")
+            $("#checkbox-favourite").prop('checked', true).checkboxradio('refresh');
+        }
+        else{
+            console.log("feature is NOT favourited")
+            $("#checkbox-favourite").prop('checked', false).checkboxradio('refresh');
+        }
+    });
+}

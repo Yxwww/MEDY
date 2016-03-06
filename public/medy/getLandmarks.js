@@ -98,6 +98,32 @@ function removeFavourite(featureURL, UID){
     });
 }
 
+function removeFavourite2(featureURL, UID, cb){
+    //alert("whatever")
+    console.log("Removing " + featureURL)
+    var ref = new Firebase("https://teammedy.firebaseio.com/users/"+UID+"/");
+    var featureRef = ref.child("favourites");
+    featureRef.once("value", function(snapshot){
+        if(snapshot.val() == null){
+            cb(featureURL, UID);
+        }
+        else{
+            snapshot.forEach(function(ss) {
+                //console.log(ss.)
+                //console.log(ss.key())
+                if(ss.val()===featureURL){
+                    var removeRef = featureRef.child(ss.key());
+                    //removeRef.remove(cb(featureURL, UID));
+                    //alert("whatever2")
+                    removeRef.remove(function(){
+                        cb(featureURL, UID);
+                    })
+                }
+            });
+        }
+    });
+}
+
 function mapAllFavourites(uid){
     navToPageWithTransition("nearby", {transition : "slide"});
     getFavourites(uid, 10, function(favourites){
